@@ -2,16 +2,16 @@ let KeyboardHandler = {
     onKeyDown(event) {
         switch (event.keyCode) {
             case 87: // w
-                MovementHandler.move(DIRECTIONS.TOP);
+                MovementHandler.handle('moveTop');
                 break;
             case 65: // a
-                MovementHandler.move(DIRECTIONS.LEFT);
+                MovementHandler.handle('moveLeft');
                 break;
             case 83: // s
-                MovementHandler.move(DIRECTIONS.BOTTOM);
+                MovementHandler.handle('moveBottom');
                 break;
             case 68: // d
-                MovementHandler.move(DIRECTIONS.RIGHT);
+                MovementHandler.handle('moveRight');
                 break;
             default:
                 console.log('keyCode not handled: ', event.keyCode);

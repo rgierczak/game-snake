@@ -1,18 +1,14 @@
 const SNAKE_MOVEMENT_SPEED = 40;
 
 let MovementHandler = {
-    start (direction){
-        this.clock = setInterval(
-            () => Snake.move(direction), 
-        SNAKE_MOVEMENT_SPEED);
-    },
-    
     stop() {
         clearInterval(this.clock);
     },
     
-    move(direction){
+    handle(method) {
         this.stop();
-        this.start(direction);
-    }
+        this.clock = setInterval(
+            () => Snake[method](),
+        SNAKE_MOVEMENT_SPEED);
+    },
 };

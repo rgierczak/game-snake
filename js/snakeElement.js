@@ -12,16 +12,8 @@ class SnakeElement {
     
     setupSnakeElement(position, direction) {
         this.createSnakeElement();
-        this.setSnakeElementPosition(position);
-        this.setSnakeElementDirection(direction);
+        this.setSnakeElementDirection(position, direction);
         this.setSnakeElementDistance();
-    }
-    
-    setSnakeElementPosition(position) {
-        this.position = {
-            x: position.x,
-            y: position.y
-        }
     }
     
     createSnakeElement() {
@@ -45,7 +37,9 @@ class SnakeElement {
         return Board.elementsMesh[this.position.y][this.position.x];
     }
     
-    setSnakeElementDirection(direction) {
+    setSnakeElementDirection(position, direction) {
+        this.position = { x: position.x, y: position.y };
+
         switch (direction) {
             default:
             case DIRECTIONS.RIGHT:
