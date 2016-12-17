@@ -1,15 +1,17 @@
+const BOARD_WIDTH = 900;
+const BOARD_HEIGHT = 600;
+
 let Board = {
     width: 0,
     height: 0,
     elementSize: 30,
     elementsMesh: [],
-    $DOMRepresentation: null,
     
-    init (width, height) {
-        this.width = width;
-        this.height = height;
-        this.$DOMRepresentation = this.createBoard();
-        this.elementsMesh = this.createBoardMesh();
+    init () {
+        this.width = BOARD_WIDTH;
+        this.height = BOARD_HEIGHT;
+        this.createBoard();
+        this.createBoardMesh();
     },
     
     setBoardAttributes($board) {
@@ -22,7 +24,6 @@ let Board = {
         let $board = document.createElement('div');
         this.setBoardAttributes($board);
         document.body.appendChild($board);
-        return $board;
     },
     
     createBoardMesh() {

@@ -1,6 +1,6 @@
 let Game = {
     setup() {
-        Board.init(900, 600);
+        Board.init();
         Snake.init();
         // 3. Init Food;
         // 4. Init Score;
@@ -8,4 +8,6 @@ let Game = {
     }
 };
 
-Game.setup();
+document.addEventListener('DOMContentLoaded', function() {
+    Game.setup();
+});

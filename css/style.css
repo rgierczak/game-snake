@@ -1,4 +1,23 @@
 body {
     padding: 0;
     margin: 0;
+    background-color: #000000;
+}
+
+#snake-board {
+    background-color: #3162ff;
+    border: solid 1px;
+    margin: 20px auto;
+    position: relative;
+    z-index: 0;
+}
+
+.snake-element{
+    width: 29px;
+    height: 29px;
+    margin: 1px 0 0 1px;
+    background-color: #00ff00;
+    position: absolute;
+    z-index: 1;
+    -webkit-border-radius: 15px;
 }
