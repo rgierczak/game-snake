@@ -88,14 +88,14 @@ let Snake = {
     moveTop() {
         let $snakeHead = getLastElement(this.snakeElements);
         let predictedPosition = { x: null, y: $snakeHead.position.y - 1 };
-        let movementCondition = this.checkVericalMoveCase(predictedPosition);
+        let movementCondition = this.checkVerticalMoveCase(predictedPosition);
         this.moveSnakeHandler(movementCondition, DIRECTIONS.TOP);
     },
     
     moveBottom() {
         let $snakeHead = getLastElement(this.snakeElements);
         let predictedPosition = { x: null, y: $snakeHead.position.y + 1 };
-        let movementCondition = this.checkVericalMoveCase(predictedPosition);
+        let movementCondition = this.checkVerticalMoveCase(predictedPosition);
         this.moveSnakeHandler(movementCondition, DIRECTIONS.BOTTOM);
     },
     
@@ -109,7 +109,8 @@ let Snake = {
     moveRight() {
         let $snakeHead = getLastElement(this.snakeElements);
         let predictedPosition = { x: $snakeHead.position.x + 1, y: null };
-        this.moveSnakeHandler(this.checkHorizontalMoveCase(predictedPosition), DIRECTIONS.RIGHT);
+        let movementCondition = this.checkHorizontalMoveCase(predictedPosition);
+        this.moveSnakeHandler(movementCondition, DIRECTIONS.RIGHT);
     },
     
     addSnakeToBoard: function ($board, $snakeBody) {
@@ -137,7 +138,7 @@ let Snake = {
         return (predictedPosition.x >= 0 && predictedPosition.x < Board.elementSize);
     },
     
-    checkVericalMoveCase(predictedPosition) {
-        return (predictedPosition.y >= 0 && predictedPosition.y < Board.elementsMesh.length)
+    checkVerticalMoveCase(predictedPosition) {
+        return (predictedPosition.y >= 0 && predictedPosition.y < Board.elementsMesh.length);
     }
 };
