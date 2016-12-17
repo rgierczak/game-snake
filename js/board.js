@@ -32,7 +32,7 @@ let Board = {
         this.createMeshElements(horizontal, vertical);
     },
     
-    buildHorizontal: function (horizontal, i) {
+    createHorizontalMeshElements: function (horizontal, i) {
         for (let j = 0; j < horizontal; j++)
             this.elementsMesh[i].push(this.buildMeshElement(i, j));
     },
@@ -40,7 +40,7 @@ let Board = {
     createMeshElements(horizontal, vertical) {
         for (let i = 0; i < vertical; i++) {
             this.elementsMesh[i] = [];
-            this.buildHorizontal(horizontal, i);
+            this.createHorizontalMeshElements(horizontal, i);
         }
     },
     
