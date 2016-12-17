@@ -2,25 +2,19 @@ let KeyboardHandler = {
     onKeyDown(event) {
         switch (event.keyCode) {
             case 87: // w
-                this.handleMove(DIRECTIONS.TOP);
+                MovementHandler.move(DIRECTIONS.TOP);
                 break;
             case 65: // a
-                this.handleMove(DIRECTIONS.LEFT);
+                MovementHandler.move(DIRECTIONS.LEFT);
                 break;
             case 83: // s
-                this.handleMove(DIRECTIONS.BOTTOM);
+                MovementHandler.move(DIRECTIONS.BOTTOM);
                 break;
             case 68: // d
-                this.handleMove(DIRECTIONS.RIGHT);
+                MovementHandler.move(DIRECTIONS.RIGHT);
                 break;
             default:
                 console.log('keyCode not handled: ', event.keyCode);
         }
-    },
-    
-    handleMove(direction) {
-        let isMovePossible = Snake.isMovePossible(direction);
-        if (isMovePossible)
-            MovementHandler.move(direction);
     }
 };

@@ -76,9 +76,18 @@ let Snake = {
         this.displaySnakeElement($snakeHead.$body);
     },
     
-    move(direction) {
+    moveSnakeHandler: function (direction) {
         this.addSnakeHead(direction);
         this.removeSnakeTail();
+    },
+    
+    move(direction) {
+        let isMovePossible = this.isMovePossible(direction);
+        if (isMovePossible) {
+            this.moveSnakeHandler(direction);
+        } else {
+            Game.over();
+        }
     },
     
     addSnakeToBoard: function ($board, $snakeBody) {
@@ -102,7 +111,45 @@ let Snake = {
         $snakeBody.appendChild($snakeElement);
     },
     
+    checkHorizontalMoveCase(predictedPosition) {
+        return (predictedPosition.x >= 0 && predictedPosition.x < Board.elementSize);
+    },
+    
+    checkVericalMoveCase(predictedPosition) {
+        return (predictedPosition.y >= 0 && predictedPosition.y < Board.elementsMesh.length)
+    },
+    
     isMovePossible: function (direction) {
-        return true;
+        let $snakeHead = getLastElement(this.snakeElements);
+        let condition = null;
+        let predictedPosition = { x: null, y: null };
+        
+        switch (direction) {
+            case DIRECTIONS.LEFT:
+                predictedPosition.x = $snakeHead.position.x - 1;
+                condition = this.checkHorizontalMoveCase(predictedPosition);
+                break;
+            
+            case DIRECTIONS.RIGHT:
+                debugger;
+                predictedPosition.x = $snakeHead.position.x + 1;
+                condition = this.checkHorizontalMoveCase(predictedPosition);
+                break;
+            
+            case DIRECTIONS.TOP:
+                predictedPosition.y = $snakeHead.position.y - 1;
+                condition = this.checkVericalMoveCase(predictedPosition);
+                break;
+            
+            case DIRECTIONS.BOTTOM:
+                predictedPosition.y = $snakeHead.position.y + 1;
+                condition = this.checkVericalMoveCase(predictedPosition);
+                break;
+            
+            default:
+            // No default action.
+        }
+        
+        return condition;
     }
 };

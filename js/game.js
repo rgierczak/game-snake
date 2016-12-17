@@ -6,6 +6,11 @@ let Game = {
         // 3. Init Food;
         // 4. Init Score;
         //MovementHandler.start(DIRECTIONS.RIGHT);
+    },
+    
+    over() {
+        MovementHandler.stop();
+        console.log('koniec gry');
     }
 };
 
