@@ -131,7 +131,6 @@ let Snake = {
                 break;
             
             case DIRECTIONS.RIGHT:
-                debugger;
                 predictedPosition.x = $snakeHead.position.x + 1;
                 condition = this.checkHorizontalMoveCase(predictedPosition);
                 break;
