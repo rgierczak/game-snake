@@ -8,7 +8,7 @@ let Snake = {
     createSnakeFromElements: function () {
         let snakeElement = new SnakeElement();
         for (let i = 0; i < DEFAULT_SNAKE_SIZE; i++)
-            snakeElement.addElementToSnake();
+            snakeElement.addToSnake(DEFAULT_SNAKE_DIRECTION);
     },
     
     addSnakeToBoard: function ($board, $snakeBody) {
