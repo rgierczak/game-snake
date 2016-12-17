@@ -5,6 +5,7 @@ let Game = {
         // 3. Init Food;
         // 4. Init Score;
         console.log('setup Game');
+        MovementHandler.start(DIRECTIONS.RIGHT);
     }
 };
 

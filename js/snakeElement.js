@@ -7,7 +7,7 @@ function addToSnakeElementsArray(direction) {
 function addSnakeElement($snake, snakeElementsSize, direction) {
     let lastSnakeElement = $snake.childNodes[snakeElementsSize - 1];
     if ($snake && snakeElementsSize > 0)
-        Snake.snakeElements.push(createSnakePositionElement(direction, lastSnakeElement));
+        Snake.snakeDOMElements.push(createSnakePositionElement(direction, lastSnakeElement));
 }
 
 function createSnakePositionElement(direction, lastSnakeElement) {
@@ -32,29 +32,22 @@ class SnakeElement {
         addToSnakeElementsArray(direction);
     }
     
+    removeFromSnake() {
+        this.removeFromDOM();
+        Snake.removeSnakeFromElementsArray();
+    }
+    
+    removeFromDOM() {
+        let list = document.getElementById('snake');
+        if(list.childElementCount > 0)
+            list.removeChild(list.childNodes[0]);
+    }
+    
     addToDOM(direction) {
         this.createSnakeElement();
         this.setSnakeElementDirection(direction);
         this.setSnakeElementDistance();
         Snake.$body.appendChild(this.$body);
-    }
-    
-    setSnakeElementDirection(direction) {
-        switch (direction) {
-            default:
-            case 1:
-                this.positionX += 1;
-                break;
-            case 2:
-                this.positionY += 1;
-                break;
-            case 3:
-                this.positionX -= 1;
-                break;
-            case 4:
-                this.positionY -= 1;
-                break;
-        }
     }
     
     setSnakeElementDistance() {
@@ -69,4 +62,71 @@ class SnakeElement {
         $element.setAttribute('class', 'snake-element');
         this.$body = $element;
     }
+    
+    setSnakeElementDirection(direction) {
+        switch (direction) {
+            default:
+            case DIRECTIONS.RIGHT:
+                this.positionX += 1;
+                break;
+            case DIRECTIONS.TOP:
+                this.positionY -= 1;
+                break;
+            case DIRECTIONS.LEFT:
+                this.positionX -= 1;
+                break;
+            case DIRECTIONS.BOTTOM:
+                this.positionY += 1;
+                break;
+        }
+    }
+    
+    modifyElement(direction) {
+        this.addToSnake(direction);
+        this.removeFromSnake();
+    }
+    
+    move(direction) {
+        switch (direction) {
+            case 1:
+                console.log('1');
+                if (this.positionX < Board.elementsMesh[0].length - 1 &&
+                    Snake.isMovePossible(direction)) {
+                    this.modifyElement(direction);
+                } else {
+                    MovementHandler.stop();
+                }
+                break;
+            case 2:
+                console.log('2');
+                if (this.positionY < Board.elementsMesh.length - 1 &&
+                    Snake.isMovePossible(direction)) {
+                    this.modifyElement(direction);
+                } else {
+                    MovementHandler.stop();
+                }
+                break;
+            case 3:
+                console.log('3');
+                if (this.positionX > 0 &&
+                    Snake.isMovePossible(direction)) {
+                    this.modifyElement(direction);
+                } else {
+                    MovementHandler.stop();
+                }
+                break;
+            case 4:
+                console.log('4');
+                if (this.positionY > 0 &&
+                    Snake.isMovePossible(direction)) {
+                    this.modifyElement(direction);
+                } else {
+                    MovementHandler.stop();
+                }
+                break;
+            default:
+                this.addToSnake(1);
+                break;
+        }
+    };
 }
