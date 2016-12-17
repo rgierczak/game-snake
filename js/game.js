@@ -1,6 +1,6 @@
 let Game = {
     setup() {
-        Board.init();
+        Board.init(900, 600);
         Snake.init();
         // 3. Init Food;
         // 4. Init Score;
