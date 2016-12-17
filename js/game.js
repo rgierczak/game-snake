@@ -1,11 +1,11 @@
 let Game = {
     setup() {
+        console.log('setup Game');
         Board.init();
         Snake.init();
         // 3. Init Food;
         // 4. Init Score;
-        console.log('setup Game');
-        MovementHandler.start(DIRECTIONS.RIGHT);
+        //MovementHandler.start(DIRECTIONS.RIGHT);
     }
 };
 
