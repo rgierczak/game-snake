@@ -24,20 +24,16 @@ class SnakeElement {
     }
     
     setPositionByPredicted(positions) {
-        this.setElementPositionX(positions);
-        this.setElementPositionY(positions);
+        let positionProperties = Object.keys(this.position);
+        positionProperties.forEach((property) => {
+            this.setElementPosition(positions, property);
+        })
     }
     
-    setElementPositionY(positions) {
-        let isPredictedYNumber = this.comparePositions(positions, 'y');
+    setElementPosition(positions, property) {
+        let isPredictedYNumber = this.comparePositions(positions, property);
         if (isPredictedYNumber)
-            this.position.y = positions.predicted.y;
-    }
-    
-    setElementPositionX(positions) {
-        let isPredictedXNumber = this.comparePositions(positions, 'x');
-        if (isPredictedXNumber)
-            this.position.x = positions.predicted.x;
+            this.position[property] = positions.predicted[property];
     }
     
     setPositionByCurrent(positions) {
