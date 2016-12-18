@@ -38,8 +38,8 @@ let MovementHandler = {
     
     moveSnakeHandler: function (condition, predictedPosition) {
         if (condition) {
+            Snake.checkFood();
             Snake.addSnakeHead(predictedPosition);
-            Snake.removeSnakeTail();
         } else {
             Game.over();
         }

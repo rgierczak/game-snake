@@ -129,8 +129,23 @@ let Snake = {
         }
     },
     
-    displaySnakeElement ($snakeElement) {
+    displaySnakeElement($snakeElement) {
         let $snakeBody = this.$body;
         $snakeBody.appendChild($snakeElement);
     },
+    
+    checkFood() {
+        let foodEaten = false;
+    
+        Food.foodElements.forEach((element) => {
+            let isFoodFound = CollisionHandler.compareBothCoordinates(element, this.snakeHeadPosition);
+            if (isFoodFound) {
+                foodEaten = true;
+                Food.foodEatenHandler(element);
+            }
+        });
+        
+        if (!foodEaten)
+            this.removeSnakeTail();
+    }
 };

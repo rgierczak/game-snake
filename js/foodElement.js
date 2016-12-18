@@ -5,6 +5,8 @@ class FoodElement {
             x: 0,
             y: 0
         };
+        this.left = null;
+        this.top = null;
         
         this.init();
     }
@@ -25,13 +27,13 @@ class FoodElement {
         position.x = Math.floor(Math.random() * Board.elementSize);
         position.y = Math.floor(Math.random() * Board.elementsMesh.length);
     
-        let leftDistance = Board.elementsMesh[position.y][position.x].x_pos;
-        let topDistance = Board.elementsMesh[position.y][position.y].y_pos;
-        this.setFoodElementDistance(leftDistance, topDistance);
+        this.left = Board.elementsMesh[position.y][position.x].x_pos;
+        this.top = Board.elementsMesh[position.y][position.y].y_pos;
+        this.setFoodElementDistance();
     }
     
-    setFoodElementDistance(leftDistance, topDistance) {
-        this.$body.style.left = leftDistance + "px";
-        this.$body.style.top = topDistance + "px";
+    setFoodElementDistance() {
+        this.$body.style.left = this.left + "px";
+        this.$body.style.top = this.top + "px";
     }
 }

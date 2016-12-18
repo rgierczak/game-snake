@@ -1,18 +1,23 @@
 let CollisionHandler = {
-    compare (el, predictedPosition, property) {
-        return (el.position[property] === predictedPosition[property]);
+    compare (positionObject, objectToCompare, property) {
+        return (positionObject.position[property] === objectToCompare[property]);
     },
     
     checkBoardCollision(snakeElementPosition, property, boardElement) {
         return (snakeElementPosition[property] >= 0 && snakeElementPosition[property] < boardElement);
     },
     
-    checkSnakeCollision(snakeElements, predictedPosition) {
+    compareBothCoordinates: function (el, objectToCompare) {
+        let isEqualX = CollisionHandler.compare(el, objectToCompare, 'x');
+        let isEqualY = CollisionHandler.compare(el, objectToCompare, 'y');
+        return isEqualX && isEqualY;
+    },
+    
+    checkSnakeCollision(snakeElements, objectToCompare) {
         let collisionResult = true;
         snakeElements.forEach((el) => {
-            let isEqualX = CollisionHandler.compare(el, predictedPosition, 'x');
-            let isEqualY = CollisionHandler.compare(el, predictedPosition, 'y');
-            if (isEqualX && isEqualY)
+            let comparisionResult = this.compareBothCoordinates(el, objectToCompare);
+            if (comparisionResult)
                 collisionResult = false;
         });
         return collisionResult;
