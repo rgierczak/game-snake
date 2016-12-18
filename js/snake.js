@@ -1,4 +1,3 @@
-const DEFAULT_SNAKE_DIRECTION = 1;
 const DEFAULT_SNAKE_SIZE = 10;
 const KEYDOWN_EVENT_NAME = 'keydown';
 
@@ -26,7 +25,10 @@ let Snake = {
     },
     
     setupSnakeHeadPosition() {
-        this.snakeHeadPosition = { x: 0, y: 0 };
+        this.snakeHeadPosition = { 
+            x: 0, 
+            y: 0 
+        };
     },
     
     setupHandlers() {
@@ -86,7 +88,6 @@ let Snake = {
     },
     
     moveTop() {
-        debugger;
         let $snakeHead = getLastElement(this.snakeElements);
         let predictedPosition = { x: null, y: $snakeHead.position.y - 1 };
         let movementCondition = this.checkVerticalMoveCase(predictedPosition);
@@ -125,9 +126,17 @@ let Snake = {
     },
     
     createSnakeElement: function (predictedPosition) {
-        let snakeInstance = new SnakeElement(this.snakeHeadPosition, predictedPosition);
+        let positions = this.buildSnakeElementPositions(predictedPosition);
+        let snakeInstance = new SnakeElement(positions);
         this.snakeHeadPosition = snakeInstance.position;
         this.snakeElements.push(snakeInstance);
+    },
+    
+    buildSnakeElementPositions(predictedPosition) {
+        return {
+            current: this.snakeHeadPosition,
+            predicted: predictedPosition
+        }
     },
     
     displaySnakeElement ($snakeElement) {

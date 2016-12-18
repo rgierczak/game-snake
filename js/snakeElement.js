@@ -1,29 +1,50 @@
 class SnakeElement {
-    constructor(position, predictedPosition) {
+    constructor(positions) {
         this.$body = null;
         this.position = null;
-
-        this.init(position, predictedPosition);
+        
+        this.init(positions);
     }
     
-    init(position, predictedPosition) {
-        this.setupSnakeElement(position, predictedPosition);
-    }
-    
-    setupSnakeElement(position, predictedPosition) {
+    init(positions) {
         this.createSnakeElement();
-        this.updateSnakeElementPosition(position, predictedPosition);
+        this.setSnakeElementPosition(positions);
         this.setSnakeElementDistance();
     }
     
-    updateSnakeElementPosition(position, predictedPosition) {
-        this.position = { x: position.x, y: position.y };
-        if (typeof (predictedPosition.x) === "number" && this.position.x != predictedPosition.x) {
-            this.position.x = predictedPosition.x;
-        }
-        if (typeof (predictedPosition.y) === "number" && position.y != predictedPosition.y) {
-            this.position.y = predictedPosition.y;
-        }
+    setSnakeElementPosition(positions) {
+        this.setPositionByCurrent(positions);
+        this.setPositionByPredicted(positions);
+    }
+    
+    comparePositions(positions, value) {
+        let isValueNull = positions.predicted[value] == null;
+        let isValueEqual = this.position[value] === positions.predicted[value];
+        return !isValueNull && !isValueEqual;
+    }
+    
+    setPositionByPredicted(positions) {
+        this.setElementPositionX(positions);
+        this.setElementPositionY(positions);
+    }
+    
+    setElementPositionY(positions) {
+        let isPredictedYNumber = this.comparePositions(positions, 'y');
+        if (isPredictedYNumber)
+            this.position.y = positions.predicted.y;
+    }
+    
+    setElementPositionX(positions) {
+        let isPredictedXNumber = this.comparePositions(positions, 'x');
+        if (isPredictedXNumber)
+            this.position.x = positions.predicted.x;
+    }
+    
+    setPositionByCurrent(positions) {
+        this.position = {
+            x: positions.current.x,
+            y: positions.current.y
+        };
     }
     
     createSnakeElement() {

@@ -5,12 +5,12 @@ let Game = {
         Snake.init();
         // 3. Init Food;
         // 4. Init Score;
-        MovementHandler.handle("moveRight");
+        MovementHandler.handle('moveRight');
     },
     
     over() {
         MovementHandler.stop();
-        console.log('koniec gry');
+        console.log('Game Over');
     }
 };
 
