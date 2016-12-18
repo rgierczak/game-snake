@@ -1,4 +1,4 @@
-const DEFAULT_SNAKE_SIZE = 10;
+const DEFAULT_SNAKE_SIZE = 30;
 const KEYDOWN_EVENT_NAME = 'keydown';
 
 function getLastElement(array) {
@@ -25,9 +25,9 @@ let Snake = {
     },
     
     setupSnakeHeadPosition() {
-        this.snakeHeadPosition = { 
-            x: 0, 
-            y: 0 
+        this.snakeHeadPosition = {
+            x: 0,
+            y: 0
         };
     },
     
@@ -89,17 +89,17 @@ let Snake = {
     
     setPredictedPositionForTop: function () {
         let $snakeHead = getLastElement(this.snakeElements);
-        return { 
-            x: null, 
-            y: $snakeHead.position.y - 1 
+        return {
+            x: $snakeHead.position.x,
+            y: $snakeHead.position.y - 1
         };
     },
     
     setPredictedPositionForBottom: function () {
         let $snakeHead = getLastElement(this.snakeElements);
-        return { 
-            x: null, 
-            y: $snakeHead.position.y + 1 
+        return {
+            x: $snakeHead.position.x,
+            y: $snakeHead.position.y + 1
         };
     },
     
@@ -107,7 +107,7 @@ let Snake = {
         let $snakeHead = getLastElement(this.snakeElements);
         return {
             x: $snakeHead.position.x - 1,
-            y: null
+            y: $snakeHead.position.y,
         };
     },
     
@@ -115,7 +115,7 @@ let Snake = {
         let $snakeHead = getLastElement(this.snakeElements);
         return {
             x: $snakeHead.position.x + 1,
-            y: null
+            y: $snakeHead.position.y
         };
     },
     
@@ -172,11 +172,34 @@ let Snake = {
         $snakeBody.appendChild($snakeElement);
     },
     
+    compareByProperty: function (el, predictedPosition, property) {
+        return (el.position[property] === predictedPosition[property]);
+    },
+    
+    checkSnakeCollision(snakeElements, predictedPosition) {
+        let collisionResult = true;
+        snakeElements.forEach((el) => {
+            let isEqualX = this.compareByProperty(el, predictedPosition, 'x');
+            let isEqualY = this.compareByProperty(el, predictedPosition, 'y');
+            if (isEqualX && isEqualY)
+                collisionResult = false;
+        });
+        return collisionResult;
+    },
+    
+    checkBoardCollision(snakeElementPosition, property, boardElement) {
+        return (snakeElementPosition[property] >= 0 && snakeElementPosition[property] < boardElement);
+    },
+    
     checkHorizontalMoveCase(predictedPosition) {
-        return (predictedPosition.x >= 0 && predictedPosition.x < Board.elementSize);
+        let isSnakeCollision = this.checkSnakeCollision(this.snakeElements, predictedPosition);
+        let isBoardCollision = this.checkBoardCollision(predictedPosition, 'x', Board.elementSize);
+        return isBoardCollision && isSnakeCollision;
     },
     
     checkVerticalMoveCase(predictedPosition) {
-        return (predictedPosition.y >= 0 && predictedPosition.y < Board.elementsMesh.length);
+        let isSnakeCollision = this.checkSnakeCollision(this.snakeElements, predictedPosition);
+        let isBoardCollision = this.checkBoardCollision(predictedPosition, 'y',  Board.elementsMesh.length);
+        return isBoardCollision && isSnakeCollision;
     }
 };
