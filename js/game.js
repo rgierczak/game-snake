@@ -3,7 +3,7 @@ let Game = {
         console.log('setup Game');
         Board.init();
         Snake.init();
-        // 3. Init Food;
+        Food.init();
         // 4. Init Score;
         MovementHandler.handle('moveRight');
     },

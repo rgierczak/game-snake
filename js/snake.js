@@ -10,7 +10,10 @@ function getLastElement(array) {
 let Snake = {
     $body: null,
     snakeElements: [],
-    snakeHeadPosition: {},
+    snakeHeadPosition: {
+        x: 0,
+        y: 0
+    },
     
     init() {
         this.setupSnake();
@@ -18,17 +21,9 @@ let Snake = {
     },
     
     setupSnake() {
-        this.setupSnakeHeadPosition();
         this.setupSnakeBody();
         this.createSnakeElements();
         this.displaySnake();
-    },
-    
-    setupSnakeHeadPosition() {
-        this.snakeHeadPosition = {
-            x: 0,
-            y: 0
-        };
     },
     
     setupHandlers() {

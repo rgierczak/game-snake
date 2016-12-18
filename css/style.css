@@ -21,3 +21,15 @@ body {
     z-index: 1;
     -webkit-border-radius: 15px;
 }
+
+
+.food-element{
+    width: 29px;
+    height: 29px;
+    margin: 1px 0 0 1px;
+    position: absolute;
+    z-index: 1;
+    background-color: #ffff00;
+
+    -webkit-border-radius: 15px;
+}
