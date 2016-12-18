@@ -87,30 +87,58 @@ let Snake = {
         }
     },
     
-    moveTop() {
+    setPredictedPositionForTop: function () {
         let $snakeHead = getLastElement(this.snakeElements);
-        let predictedPosition = { x: null, y: $snakeHead.position.y - 1 };
+        return { 
+            x: null, 
+            y: $snakeHead.position.y - 1 
+        };
+    },
+    
+    setPredictedPositionForBottom: function () {
+        let $snakeHead = getLastElement(this.snakeElements);
+        return { 
+            x: null, 
+            y: $snakeHead.position.y + 1 
+        };
+    },
+    
+    setPredictedPositionForLeft: function () {
+        let $snakeHead = getLastElement(this.snakeElements);
+        return {
+            x: $snakeHead.position.x - 1,
+            y: null
+        };
+    },
+    
+    setPredictedPositionForRight: function () {
+        let $snakeHead = getLastElement(this.snakeElements);
+        return {
+            x: $snakeHead.position.x + 1,
+            y: null
+        };
+    },
+    
+    moveTop() {
+        let predictedPosition = this.setPredictedPositionForTop();
         let movementCondition = this.checkVerticalMoveCase(predictedPosition);
         this.moveSnakeHandler(movementCondition, predictedPosition);
     },
     
     moveBottom() {
-        let $snakeHead = getLastElement(this.snakeElements);
-        let predictedPosition = { x: null, y: $snakeHead.position.y + 1 };
+        let predictedPosition = this.setPredictedPositionForBottom();
         let movementCondition = this.checkVerticalMoveCase(predictedPosition);
         this.moveSnakeHandler(movementCondition, predictedPosition);
     },
     
     moveLeft() {
-        let $snakeHead = getLastElement(this.snakeElements);
-        let predictedPosition = { x: $snakeHead.position.x - 1, y: null };
+        let predictedPosition = this.setPredictedPositionForLeft();
         let movementCondition = this.checkHorizontalMoveCase(predictedPosition);
         this.moveSnakeHandler(movementCondition, predictedPosition);
     },
     
     moveRight() {
-        let $snakeHead = getLastElement(this.snakeElements);
-        let predictedPosition = { x: $snakeHead.position.x + 1, y: null };
+        let predictedPosition = this.setPredictedPositionForRight();
         let movementCondition = this.checkHorizontalMoveCase(predictedPosition);
         this.moveSnakeHandler(movementCondition, predictedPosition);
     },
