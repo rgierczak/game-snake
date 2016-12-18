@@ -5,7 +5,7 @@ let Game = {
         Snake.init();
         // 3. Init Food;
         // 4. Init Score;
-        //MovementHandler.start(DIRECTIONS.RIGHT);
+        MovementHandler.handle("moveRight");
     },
     
     over() {

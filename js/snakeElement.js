@@ -1,19 +1,29 @@
 class SnakeElement {
-    constructor(position, direction) {
+    constructor(position, predictedPosition) {
         this.$body = null;
         this.position = null;
 
-        this.init(position, direction);
+        this.init(position, predictedPosition);
     }
     
-    init(position, direction) {
-        this.setupSnakeElement(position, direction);
+    init(position, predictedPosition) {
+        this.setupSnakeElement(position, predictedPosition);
     }
     
-    setupSnakeElement(position, direction) {
+    setupSnakeElement(position, predictedPosition) {
         this.createSnakeElement();
-        this.setSnakeElementDirection(position, direction);
+        this.updateSnakeElementPosition(position, predictedPosition);
         this.setSnakeElementDistance();
+    }
+    
+    updateSnakeElementPosition(position, predictedPosition) {
+        this.position = { x: position.x, y: position.y };
+        if (typeof (predictedPosition.x) === "number" && this.position.x != predictedPosition.x) {
+            this.position.x = predictedPosition.x;
+        }
+        if (typeof (predictedPosition.y) === "number" && position.y != predictedPosition.y) {
+            this.position.y = predictedPosition.y;
+        }
     }
     
     createSnakeElement() {
@@ -35,25 +45,5 @@ class SnakeElement {
     
     getBoardMeshElement() {
         return Board.elementsMesh[this.position.y][this.position.x];
-    }
-    
-    setSnakeElementDirection(position, direction) {
-        this.position = { x: position.x, y: position.y };
-
-        switch (direction) {
-            default:
-            case DIRECTIONS.RIGHT:
-                this.position.x += 1;
-                break;
-            case DIRECTIONS.TOP:
-                this.position.y -= 1;
-                break;
-            case DIRECTIONS.LEFT:
-                this.position.x -= 1;
-                break;
-            case DIRECTIONS.BOTTOM:
-                this.position.y += 1;
-                break;
-        }
     }
 }

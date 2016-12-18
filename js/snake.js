@@ -51,7 +51,7 @@ let Snake = {
     
     createSnakeElements: function () {
         for (let i = 0; i < DEFAULT_SNAKE_SIZE; i++)
-            this.createSnakeElement(DEFAULT_SNAKE_DIRECTION);
+            this.createSnakeElement(this.snakeHeadPosition);
     },
     
     removeElementFromArray () {
@@ -70,15 +70,15 @@ let Snake = {
         this.removeElementFromDOM();
     },
     
-    addSnakeHead: function (direction) {
-        this.createSnakeElement(direction);
+    addSnakeHead: function (predictedPosition) {
+        this.createSnakeElement(predictedPosition);
         let $snakeHead = getLastElement(this.snakeElements);
         this.displaySnakeElement($snakeHead.$body);
     },
     
-    moveSnakeHandler: function (condition, direction) {
+    moveSnakeHandler: function (condition, predictedPosition) {
         if (condition) {
-            this.addSnakeHead(direction);
+            this.addSnakeHead(predictedPosition);
             this.removeSnakeTail();
         } else {
             Game.over();
@@ -86,31 +86,32 @@ let Snake = {
     },
     
     moveTop() {
+        debugger;
         let $snakeHead = getLastElement(this.snakeElements);
         let predictedPosition = { x: null, y: $snakeHead.position.y - 1 };
         let movementCondition = this.checkVerticalMoveCase(predictedPosition);
-        this.moveSnakeHandler(movementCondition, DIRECTIONS.TOP);
+        this.moveSnakeHandler(movementCondition, predictedPosition);
     },
     
     moveBottom() {
         let $snakeHead = getLastElement(this.snakeElements);
         let predictedPosition = { x: null, y: $snakeHead.position.y + 1 };
         let movementCondition = this.checkVerticalMoveCase(predictedPosition);
-        this.moveSnakeHandler(movementCondition, DIRECTIONS.BOTTOM);
+        this.moveSnakeHandler(movementCondition, predictedPosition);
     },
     
     moveLeft() {
         let $snakeHead = getLastElement(this.snakeElements);
         let predictedPosition = { x: $snakeHead.position.x - 1, y: null };
         let movementCondition = this.checkHorizontalMoveCase(predictedPosition);
-        this.moveSnakeHandler(movementCondition, DIRECTIONS.LEFT);
+        this.moveSnakeHandler(movementCondition, predictedPosition);
     },
     
     moveRight() {
         let $snakeHead = getLastElement(this.snakeElements);
         let predictedPosition = { x: $snakeHead.position.x + 1, y: null };
         let movementCondition = this.checkHorizontalMoveCase(predictedPosition);
-        this.moveSnakeHandler(movementCondition, DIRECTIONS.RIGHT);
+        this.moveSnakeHandler(movementCondition, predictedPosition);
     },
     
     addSnakeToBoard: function ($board, $snakeBody) {
@@ -123,8 +124,8 @@ let Snake = {
         return $snake;
     },
     
-    createSnakeElement: function (direction) {
-        let snakeInstance = new SnakeElement(this.snakeHeadPosition, direction);
+    createSnakeElement: function (predictedPosition) {
+        let snakeInstance = new SnakeElement(this.snakeHeadPosition, predictedPosition);
         this.snakeHeadPosition = snakeInstance.position;
         this.snakeElements.push(snakeInstance);
     },
