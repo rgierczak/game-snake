@@ -87,7 +87,7 @@ let Food = {
     },
     
     checkFoodHandler(element, predictedPosition) {
-        let isFoodFound = CollisionHandler.compareBothCoordinates(element, Snake.snakeHeadPosition);
+        let isFoodFound = CollisionHandler.compareObject(element, Snake.snakeHeadPosition);
         if (isFoodFound)
             this.foodEatenHandler(element, predictedPosition);
     },

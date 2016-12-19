@@ -1,37 +1,25 @@
 let CollisionHandler = {
-    compare (positionObject, objectToCompare, property) {
+    compareProperty (positionObject, objectToCompare, property) {
         return (positionObject.position[property] === objectToCompare[property]);
+    },
+    
+    compareObject(el, objectToCompare) {
+        let isEqualX = this.compareProperty(el, objectToCompare, 'x');
+        let isEqualY = this.compareProperty(el, objectToCompare, 'y');
+        return isEqualX && isEqualY;
     },
     
     checkBoardCollision(snakeElementPosition, property, boardElement) {
         return (snakeElementPosition[property] >= 0 && snakeElementPosition[property] < boardElement);
     },
     
-    compareBothCoordinates(el, objectToCompare) {
-        let isEqualX = CollisionHandler.compare(el, objectToCompare, 'x');
-        let isEqualY = CollisionHandler.compare(el, objectToCompare, 'y');
-        return isEqualX && isEqualY;
-    },
-    
     checkSnakeCollision(snakeElements, objectToCompare) {
         let collisionResult = true;
         snakeElements.forEach((el) => {
-            let comparisionResult = this.compareBothCoordinates(el, objectToCompare);
+            let comparisionResult = this.compareObject(el, objectToCompare);
             if (comparisionResult)
                 collisionResult = false;
         });
         return collisionResult;
-    },
-    
-    checkHorizontalMove(predictedPosition) {
-        let isSnakeCollision = CollisionHandler.checkSnakeCollision(Snake.snakeElements, predictedPosition);
-        let isBoardCollision = CollisionHandler.checkBoardCollision(predictedPosition, 'x', Board.elementSize);
-        return isBoardCollision && isSnakeCollision;
-    },
-    
-    checkVerticalMove(predictedPosition) {
-        let isSnakeCollision = CollisionHandler.checkSnakeCollision(Snake.snakeElements, predictedPosition);
-        let isBoardCollision = CollisionHandler.checkBoardCollision(predictedPosition, 'y',  Board.elementsMesh.length);
-        return isBoardCollision && isSnakeCollision;
     }
 };

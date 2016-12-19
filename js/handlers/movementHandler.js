@@ -1,5 +1,11 @@
 const SNAKE_MOVEMENT_SPEED = 40;
 
+function checkMove(predictedPosition, property, boardSize) {
+    let isSnakeCollision = CollisionHandler.checkSnakeCollision(Snake.snakeElements, predictedPosition);
+    let isBoardCollision = CollisionHandler.checkBoardCollision(predictedPosition, property, boardSize);
+    return isBoardCollision && isSnakeCollision;
+}
+
 let MovementHandler = {
     stop() {
         clearInterval(this.clock);
@@ -14,29 +20,29 @@ let MovementHandler = {
     
     moveTop() {
         let predictedPosition = Snake.setPredictedPositionForTop();
-        let movementCondition = CollisionHandler.checkVerticalMove(predictedPosition);
-        MovementHandler.moveHandler(movementCondition, predictedPosition);
+        let movementCondition = checkMove(predictedPosition, 'y', Board.elementsMesh.length);
+        this.moveHandler(movementCondition, predictedPosition);
     },
     
     moveBottom() {
         let predictedPosition = Snake.setPredictedPositionForBottom();
-        let movementCondition = CollisionHandler.checkVerticalMove(predictedPosition);
-        MovementHandler.moveHandler(movementCondition, predictedPosition);
+        let movementCondition = checkMove(predictedPosition, 'y', Board.elementsMesh.length);
+        this.moveHandler(movementCondition, predictedPosition);
     },
     
     moveLeft() {
         let predictedPosition = Snake.setPredictedPositionForLeft();
-        let movementCondition = CollisionHandler.checkHorizontalMove(predictedPosition);
-        MovementHandler.moveHandler(movementCondition, predictedPosition);
+        let movementCondition = checkMove(predictedPosition, 'x', Board.elementSize);
+        this.moveHandler(movementCondition, predictedPosition);
     },
     
     moveRight() {
         let predictedPosition = Snake.setPredictedPositionForRight();
-        let movementCondition = CollisionHandler.checkHorizontalMove(predictedPosition);
-        MovementHandler.moveHandler(movementCondition, predictedPosition);
+        let movementCondition = checkMove(predictedPosition, 'x', Board.elementSize);
+        this.moveHandler(movementCondition, predictedPosition);
     },
     
     moveHandler(condition, predictedPosition) {
         condition ? Snake.handleMovement(predictedPosition) : Game.over();
-    },
+    }
 };
