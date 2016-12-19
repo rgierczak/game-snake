@@ -7,7 +7,7 @@ let CollisionHandler = {
         return (snakeElementPosition[property] >= 0 && snakeElementPosition[property] < boardElement);
     },
     
-    compareBothCoordinates: function (el, objectToCompare) {
+    compareBothCoordinates(el, objectToCompare) {
         let isEqualX = CollisionHandler.compare(el, objectToCompare, 'x');
         let isEqualY = CollisionHandler.compare(el, objectToCompare, 'y');
         return isEqualX && isEqualY;

@@ -32,6 +32,16 @@ let Snake = {
         });
     },
     
+    moveSnake (predictedPosition) {
+        this.addSnakeHead(predictedPosition);
+        this.removeSnakeTail();
+    },
+    
+    handleMovement(predictedPosition) {
+        this.moveSnake(predictedPosition);
+        Food.checkFood(predictedPosition);
+    },
+    
     displaySnake() {
         let $snakeElements = this.snakeElements;
         $snakeElements.forEach(($element) => {
@@ -46,17 +56,17 @@ let Snake = {
             this.addSnakeToBoard($board, this.$body);
     },
     
-    createSnakeElements: function () {
+    createSnakeElements() {
         for (let i = 0; i < DEFAULT_SNAKE_SIZE; i++)
             this.createSnakeElement(this.snakeHeadPosition);
     },
     
-    removeElementFromArray () {
+    removeElementFromArray() {
         if (this.snakeElements && this.snakeElements.length)
             this.snakeElements.splice(0, 1);
     },
     
-    removeElementFromDOM () {
+    removeElementFromDOM() {
         let list = document.getElementById('snake');
         if (list.childElementCount)
             list.removeChild(list.childNodes[0]);
@@ -67,13 +77,13 @@ let Snake = {
         this.removeElementFromDOM();
     },
     
-    addSnakeHead: function (predictedPosition) {
+    addSnakeHead(predictedPosition) {
         this.createSnakeElement(predictedPosition);
         let $snakeHead = getLastElement(this.snakeElements);
         this.displaySnakeElement($snakeHead.$body);
     },
     
-    setPredictedPositionForTop: function () {
+    setPredictedPositionForTop() {
         let $snakeHead = getLastElement(this.snakeElements);
         return {
             x: $snakeHead.position.x,
@@ -81,7 +91,7 @@ let Snake = {
         };
     },
     
-    setPredictedPositionForBottom: function () {
+    setPredictedPositionForBottom() {
         let $snakeHead = getLastElement(this.snakeElements);
         return {
             x: $snakeHead.position.x,
@@ -89,7 +99,7 @@ let Snake = {
         };
     },
     
-    setPredictedPositionForLeft: function () {
+    setPredictedPositionForLeft() {
         let $snakeHead = getLastElement(this.snakeElements);
         return {
             x: $snakeHead.position.x - 1,
@@ -97,7 +107,7 @@ let Snake = {
         };
     },
     
-    setPredictedPositionForRight: function () {
+    setPredictedPositionForRight() {
         let $snakeHead = getLastElement(this.snakeElements);
         return {
             x: $snakeHead.position.x + 1,
@@ -105,7 +115,7 @@ let Snake = {
         };
     },
     
-    addSnakeToBoard: function ($board, $snakeBody) {
+    addSnakeToBoard($board, $snakeBody) {
         $board.appendChild($snakeBody);
     },
     
@@ -115,7 +125,7 @@ let Snake = {
         return $snake;
     },
     
-    createSnakeElement: function (predictedPosition) {
+    createSnakeElement(predictedPosition) {
         let positions = this.buildSnakeElementPositions(predictedPosition);
         let snakeInstance = new SnakeElement(positions);
         this.snakeHeadPosition = snakeInstance.position;
@@ -132,20 +142,5 @@ let Snake = {
     displaySnakeElement($snakeElement) {
         let $snakeBody = this.$body;
         $snakeBody.appendChild($snakeElement);
-    },
-    
-    checkFood() {
-        let foodEaten = false;
-    
-        Food.foodElements.forEach((element) => {
-            let isFoodFound = CollisionHandler.compareBothCoordinates(element, this.snakeHeadPosition);
-            if (isFoodFound) {
-                foodEaten = true;
-                Food.foodEatenHandler(element);
-            }
-        });
-        
-        if (!foodEaten)
-            this.removeSnakeTail();
     }
 };

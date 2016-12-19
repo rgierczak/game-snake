@@ -70,14 +70,31 @@ let Food = {
         }
     },
     
-    remove(element) {
+    removeFoodElement(element) {
         this.removeFromDOM(element);
         this.removeFromArray(element);
     },
     
-    foodEatenHandler(element) {
-        this.remove(element);
+    gameOverHandler() {
         if (!this.foodElements.length)
             Game.over();
+    },
+    
+    foodEatenHandler(element, position) {
+        Snake.addSnakeHead(position);
+        this.removeFoodElement(element);
+        this.gameOverHandler();
+    },
+    
+    checkFoodHandler(element, predictedPosition) {
+        let isFoodFound = CollisionHandler.compareBothCoordinates(element, Snake.snakeHeadPosition);
+        if (isFoodFound)
+            this.foodEatenHandler(element, predictedPosition);
+    },
+    
+    checkFood(predictedPosition) {
+        this.foodElements.forEach((element) => {
+            this.checkFoodHandler(element, predictedPosition);
+        });
     },
 };
