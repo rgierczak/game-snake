@@ -1,39 +1,41 @@
 const FOOD_ELEMENTS_NUMBER = 5;
 
-let Food = {
-    foodElements: [],
-    $body: null,
-    
-    init() {
+class Food {
+    constructor(board, snake) {
+        this.$body = null;
+        this.foodElements = [];
+        this.board = board;
+        this.snake = snake;
         this.setupFoodBody();
         this.createFoodElements();
         this.displayFood();
-    },
+    }
     
     displayFood() {
         this.foodElements.forEach(($element) => {
             this.$body.appendChild($element.$body);
         })
-    },
-
+    }
+    
     createFoodElements() {
-        for (let i = 0; i < FOOD_ELEMENTS_NUMBER; i++) {
-            this.foodElements.push(new FoodElement());
-        }
-    },
+        let boardSize = this.board.getBoardSize();
+        let boardMesh = this.board.getBoardMesh();
+        for (let i = 0; i < FOOD_ELEMENTS_NUMBER; i++)
+            this.foodElements.push(new FoodElement(boardSize, boardMesh));
+    }
     
     setupFoodBody() {
         let $board = document.getElementById('snake-board');
         this.$body = this.createFoodBody();
         if ($board)
             $board.appendChild(this.$body);
-    },
+    }
     
-    createFoodBody () {
+    createFoodBody() {
         let $food = document.createElement('div');
         $food.setAttribute('id', 'food');
         return $food;
-    },
+    }
     
     removeFromDOM(element) {
         let list = document.getElementById('food');
@@ -44,7 +46,7 @@ let Food = {
                 list.removeChild(list.childNodes[i]);
             }
         }
-    },
+    }
     
     removeFromArray(element) {
         let elements = this.foodElements;
@@ -52,29 +54,29 @@ let Food = {
             if (Helper.positionCompare(elements[i], element))
                 elements.splice(i, 1);
         }
-    },
+    }
     
     removeFoodElement(element) {
         this.removeFromDOM(element);
         this.removeFromArray(element);
-    },
+    }
     
     foodEatenHandler(element, position) {
-        Snake.addSnakeHead(position);
+        this.snake.addSnakeHead(position);
         this.removeFoodElement(element);
         if (!this.foodElements.length)
-            Game.over();
-    },
+            document.dispatchEvent(new CustomEvent('game:over'));
+    }
     
     checkFoodHandler(element, predictedPosition) {
-        let isFoodFound = Helper.compare(element, Snake.snakeHeadPosition);
+        let isFoodFound = Helper.compare(element, this.snake.snakeHeadPosition);
         if (isFoodFound)
             this.foodEatenHandler(element, predictedPosition);
-    },
+    }
     
     checkFood(predictedPosition) {
         this.foodElements.forEach((element) => {
             this.checkFoodHandler(element, predictedPosition);
         });
-    },
-};
+    }
+}

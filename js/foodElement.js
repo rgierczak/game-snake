@@ -1,5 +1,5 @@
 class FoodElement {
-    constructor() {
+    constructor(boardSize, boardMesh) {
         this.$body = null;
         this.position = {
             x: 0,
@@ -7,6 +7,8 @@ class FoodElement {
         };
         this.left = null;
         this.top = null;
+        this.boardSize = boardSize;
+        this.boardMesh = boardMesh;
         
         this.init();
     }
@@ -24,11 +26,11 @@ class FoodElement {
     
     setFoodElementPosition() {
         let position = this.position;
-        position.x = Math.floor(Math.random() * Board.elementSize);
-        position.y = Math.floor(Math.random() * Board.elementsMesh.length);
+        position.x = Math.floor(Math.random() * this.boardSize.x);
+        position.y = Math.floor(Math.random() * this.boardSize.y);
     
-        this.left = Board.elementsMesh[position.y][position.x].x_pos;
-        this.top = Board.elementsMesh[position.y][position.y].y_pos;
+        this.left = this.boardMesh[this.position.y][this.position.x].x_pos;
+        this.top = this.boardMesh[this.position.y][this.position.y].y_pos;
         this.setFoodElementDistance();
     }
     

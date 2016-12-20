@@ -1,15 +1,15 @@
 class SnakeElement {
-    constructor(positions) {
+    constructor(positions, boardMesh) {
         this.$body = null;
         this.position = null;
         
-        this.init(positions);
+        this.init(positions, boardMesh);
     }
     
-    init(positions) {
+    init(positions, boardMesh) {
         this.createSnakeElement();
         this.setSnakeElementPosition(positions);
-        this.setSnakeElementDistance();
+        this.setSnakeElementDistance(boardMesh);
     }
     
     setSnakeElementPosition(positions) {
@@ -49,14 +49,10 @@ class SnakeElement {
         this.$body = $element;
     }
     
-    setSnakeElementDistance() {
-        let leftDistance = this.getBoardMeshElement().x_pos;
-        let topDistance = this.getBoardMeshElement().y_pos;
+    setSnakeElementDistance(boardMesh) {
+        let leftDistance = boardMesh[this.position.y][this.position.x].x_pos;
+        let topDistance = boardMesh[this.position.y][this.position.x].y_pos;
         this.$body.style.left = leftDistance + "px";
         this.$body.style.top = topDistance + "px";
-    }
-    
-    getBoardMeshElement() {
-        return Board.elementsMesh[this.position.y][this.position.x];
     }
 }
