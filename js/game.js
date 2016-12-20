@@ -14,6 +14,10 @@ let Game = {
     }
 };
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     Game.setup();
+});
+
+document.addEventListener('collision', () => {
+    Game.over();
 });

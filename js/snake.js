@@ -1,12 +1,6 @@
 const DEFAULT_SNAKE_SIZE = 30;
 const KEYDOWN_EVENT_NAME = 'keydown';
 
-function getLastElement(array) {
-    if (array && array.length)
-        return array[array.length - 1];
-    return null;
-}
-
 let Snake = {
     $body: null,
     snakeElements: [],
@@ -37,36 +31,31 @@ let Snake = {
         this.removeSnakeTail();
     },
     
-    isMovePossible: function (direction) {
+    isBoardCollision(direction) {
         let axis = direction.axis;
-        return (direction[axis] >= 0 && direction[axis] < Board.getBoardSize(axis));
+        return !(direction[axis] >= 0 && direction[axis] < Board.getBoardSize(axis));
     },
     
-    checkSnakeCollision(direction) {
-        this.snakeElements.forEach((el) => {
-            let isMovePossible = CollisionHandler.compareObject(el, direction);
-            if (isMovePossible)
-                console.log('snake collision');
+    isSnakeCollision(direction) {
+        let isCollision = false;
+        this.snakeElements.forEach((element) => {
+            if (Helper.compare(element, direction))
+                isCollision = true;
         });
+        return isCollision;
     },
     
-    checkBoardCollision(direction) {
-        //TODO: a może lepiej 
-        // let eventName = this.isMovePossible(direction) ? 'move' : 'board:collision';
-        // document.dispatchEvent(new Event(eventName));
-        
-        if (this.isMovePossible(direction))
-            this.handleMovement(direction);
+    checkCollision(direction) {
+        if (this.isBoardCollision(direction) || this.isSnakeCollision(direction))
+            document.dispatchEvent(new Event('collision'));
         else
-            document.dispatchEvent(new Event('board:collision'));
+            this.handleMovement(direction);
     },
     
-    handleMovement: function (direction) {
+    handleMovement(direction) {
         this.moveSnake(direction);
         Food.checkFood(direction);
     },
-    
-    //CollisionHandler.checkSnakeCollision(Snake.snakeElements, predictedPosition);
     
     displaySnake() {
         let $snakeElements = this.snakeElements;
@@ -103,19 +92,21 @@ let Snake = {
         this.removeElementFromDOM();
     },
     
+    getSnakeHead() {
+        let snakeElements = this.snakeElements;
+        if (snakeElements && snakeElements.length)
+            return snakeElements[snakeElements.length - 1];
+        return null;
+    },
+    
     addSnakeHead(predictedPosition) {
         this.createSnakeElement(predictedPosition);
-        let $snakeHead = getLastElement(this.snakeElements);
+        let $snakeHead = this.getSnakeHead();
         this.displaySnakeElement($snakeHead.$body);
     },
     
-    checkCollision(direction) {
-        this.checkBoardCollision(direction);
-        this.checkSnakeCollision(direction);
-    },
-    
     moveTop() {
-        let $snakeHead = getLastElement(this.snakeElements);
+        let $snakeHead = this.getSnakeHead();
         let direction = {
             axis: 'y',
             x: $snakeHead.position.x,
@@ -125,7 +116,7 @@ let Snake = {
     },
     
     moveBottom() {
-        let $snakeHead = getLastElement(this.snakeElements);
+        let $snakeHead = this.getSnakeHead();
         let direction = {
             axis: 'y',
             x: $snakeHead.position.x,
@@ -135,7 +126,7 @@ let Snake = {
     },
     
     moveLeft() {
-        let $snakeHead = getLastElement(this.snakeElements);
+        let $snakeHead = this.getSnakeHead();
         let direction = {
             axis: 'x',
             x: $snakeHead.position.x - 1,
@@ -145,7 +136,7 @@ let Snake = {
     },
     
     moveRight() {
-        let $snakeHead = getLastElement(this.snakeElements);
+        let $snakeHead = this.getSnakeHead();
         let direction = {
             axis: 'x',
             x: $snakeHead.position.x + 1,
@@ -165,13 +156,13 @@ let Snake = {
     },
     
     createSnakeElement(predictedPosition) {
-        let positions = this.buildSnakeElementPositions(predictedPosition);
+        let positions = this.buildPositionsObject(predictedPosition);
         let snakeInstance = new SnakeElement(positions);
         this.snakeHeadPosition = snakeInstance.position;
         this.snakeElements.push(snakeInstance);
     },
     
-    buildSnakeElementPositions(predictedPosition) {
+    buildPositionsObject(predictedPosition) {
         return {
             current: this.snakeHeadPosition,
             predicted: predictedPosition
