@@ -31,8 +31,8 @@ class SnakeElement {
     }
     
     setElementPosition(positions, property) {
-        let isPredictedYNumber = this.comparePositions(positions, property);
-        if (isPredictedYNumber)
+        let isPredictedNumber = this.comparePositions(positions, property);
+        if (isPredictedNumber)
             this.position[property] = positions.predicted[property];
     }
     
@@ -52,10 +52,6 @@ class SnakeElement {
     setSnakeElementDistance() {
         let leftDistance = this.getBoardMeshElement().x_pos;
         let topDistance = this.getBoardMeshElement().y_pos;
-        this.setSnakeBodyDistance(leftDistance, topDistance);
-    }
-    
-    setSnakeBodyDistance(leftDistance, topDistance) {
         this.$body.style.left = leftDistance + "px";
         this.$body.style.top = topDistance + "px";
     }

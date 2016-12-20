@@ -5,36 +5,21 @@ let Food = {
     $body: null,
     
     init() {
-        this.setupFood();
-    },
-    
-    setupFood() {
         this.setupFoodBody();
         this.createFoodElements();
         this.displayFood();
     },
     
     displayFood() {
-        let $foodElements = this.foodElements;
-        $foodElements.forEach(($element) => {
-            this.displayFoodElement($element);
+        this.foodElements.forEach(($element) => {
+            this.$body.appendChild($element.$body);
         })
     },
-    
-    displayFoodElement($element) {
-        let $foodBody = this.$body;
-        $foodBody.appendChild($element.$body);
-    },
-    
+
     createFoodElements() {
         for (let i = 0; i < FOOD_ELEMENTS_NUMBER; i++) {
-            this.createFoodElement();
+            this.foodElements.push(new FoodElement());
         }
-    },
-    
-    createFoodElement() {
-        let foodInstance = new FoodElement();
-        this.foodElements.push(foodInstance);
     },
     
     setupFoodBody() {
@@ -74,15 +59,11 @@ let Food = {
         this.removeFromArray(element);
     },
     
-    gameOverHandler() {
-        if (!this.foodElements.length)
-            Game.over();
-    },
-    
     foodEatenHandler(element, position) {
         Snake.addSnakeHead(position);
         this.removeFoodElement(element);
-        this.gameOverHandler();
+        if (!this.foodElements.length)
+            Game.over();
     },
     
     checkFoodHandler(element, predictedPosition) {

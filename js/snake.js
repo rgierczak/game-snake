@@ -57,9 +57,8 @@ let Snake = {
     },
     
     displaySnake() {
-        let $snakeElements = this.snakeElements;
-        $snakeElements.forEach(($element) => {
-            this.displaySnakeElement($element.$body);
+        this.snakeElements.forEach(($element) => {
+            this.$body.appendChild($element.$body);
         });
     },
     
@@ -67,7 +66,7 @@ let Snake = {
         let $board = document.getElementById('snake-board');
         this.$body = this.createSnakeBody();
         if ($board)
-            this.addSnakeToBoard($board, this.$body);
+            $board.appendChild(this.$body);
     },
     
     createSnakeElements() {
@@ -76,8 +75,9 @@ let Snake = {
     },
     
     removeElementFromArray() {
-        if (this.snakeElements && this.snakeElements.length)
-            this.snakeElements.splice(0, 1);
+        let elements = this.snakeElements;
+        if (elements && elements.length)
+            elements.splice(0, 1);
     },
     
     removeElementFromDOM() {
@@ -101,7 +101,7 @@ let Snake = {
     addSnakeHead(predictedPosition) {
         this.createSnakeElement(predictedPosition);
         let $snakeHead = this.getSnakeHead();
-        this.displaySnakeElement($snakeHead.$body);
+        this.$body.appendChild($snakeHead.$body);
     },
     
     moveTop() {
@@ -144,10 +144,6 @@ let Snake = {
         this.checkCollision(direction);
     },
     
-    addSnakeToBoard($board, $snakeBody) {
-        $board.appendChild($snakeBody);
-    },
-    
     createSnakeBody() {
         let $snake = document.createElement('div');
         $snake.setAttribute('id', 'snake');
@@ -166,10 +162,5 @@ let Snake = {
             current: this.snakeHeadPosition,
             predicted: predictedPosition
         }
-    },
-    
-    displaySnakeElement($snakeElement) {
-        let $snakeBody = this.$body;
-        $snakeBody.appendChild($snakeElement);
     }
 };
