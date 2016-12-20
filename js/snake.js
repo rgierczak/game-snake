@@ -1,5 +1,4 @@
 const DEFAULT_SNAKE_SIZE = 30;
-const KEYDOWN_EVENT_NAME = 'keydown';
 
 let Snake = {
     $body: null,
@@ -21,7 +20,7 @@ let Snake = {
     },
     
     setupHandlers() {
-        document.addEventListener(KEYDOWN_EVENT_NAME, (event) => {
+        document.addEventListener('keydown', (event) => {
             KeyboardHandler.onKeyDown(event);
         });
     },

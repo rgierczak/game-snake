@@ -62,11 +62,10 @@ let Food = {
     },
     
     removeFromArray(element) {
-        let arr = this.foodElements;
-        
-        for (let i = 0; i < arr.length; i++) {
-            if (arr[i].position.x === element.position.x && arr[i].position.y === element.position.y)
-                arr.splice(i, 1);
+        let elements = this.foodElements;
+        for (let i = 0; i < elements.length; i++) {
+            if (Helper.positionCompare(elements[i], element))
+                elements.splice(i, 1);
         }
     },
     
