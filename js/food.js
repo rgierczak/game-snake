@@ -43,7 +43,7 @@ class Food {
         for (let i = 0; i < list.childElementCount; i++) {
             if (parseInt(list.childNodes[i].style.top) === element.top &&
                 parseInt(list.childNodes[i].style.left) === element.left) {
-                list.removeChild(list.childNodes[i]);
+                list.childNodes[i].style.display = 'none';
             }
         }
     }
