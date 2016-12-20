@@ -1,17 +1,17 @@
-let KeyboardHandler = {
+let KeyboardHelper = {
     onKeyDown(event) {
         switch (event.keyCode) {
             case 87: // w
-                MovementHandler.handle('moveTop');
+                MovementHelper.handle('moveTop');
                 break;
             case 65: // a
-                MovementHandler.handle('moveLeft');
+                MovementHelper.handle('moveLeft');
                 break;
             case 83: // s
-                MovementHandler.handle('moveBottom');
+                MovementHelper.handle('moveBottom');
                 break;
             case 68: // d
-                MovementHandler.handle('moveRight');
+                MovementHelper.handle('moveRight');
                 break;
             default:
                 console.log('keyCode not handled: ', event.keyCode);

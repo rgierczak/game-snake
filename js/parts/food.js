@@ -1,8 +1,8 @@
-const FOOD_ELEMENTS_NUMBER = 5;
+const FOOD_ELEMENTS_NUMBER = 500;
 
-class Food {
+class Food extends Part {
     constructor(board, snake) {
-        this.$body = null;
+        super();
         this.foodElements = [];
         this.board = board;
         this.snake = snake;
@@ -13,7 +13,7 @@ class Food {
     
     displayFood() {
         this.foodElements.forEach(($element) => {
-            this.$body.appendChild($element.$body);
+            this.render($element.$body);
         })
     }
     
@@ -24,15 +24,9 @@ class Food {
     
     setupFoodBody() {
         let $board = document.getElementById('snake-board');
-        this.$body = this.createFoodBody();
+        this.createPart('food');
         if ($board)
-            $board.appendChild(this.$body);
-    }
-    
-    createFoodBody() {
-        let $food = document.createElement('div');
-        $food.setAttribute('id', 'food');
-        return $food;
+            this.render(this.$body, $board);
     }
     
     removeFromDOM(element) {
@@ -49,7 +43,7 @@ class Food {
     removeFromArray(element) {
         let elements = this.foodElements;
         for (let i = 0; i < elements.length; i++) {
-            if (Helper.positionCompare(elements[i], element))
+            if (Utils.positionCompare(elements[i], element))
                 elements.splice(i, 1);
         }
     }
@@ -67,7 +61,7 @@ class Food {
     }
     
     checkFoodHandler(element, predictedPosition) {
-        let isFoodFound = Helper.compare(element, this.snake.snakeHeadPosition);
+        let isFoodFound = Utils.compare(element, this.snake.snakeHeadPosition);
         if (isFoodFound)
             this.foodEatenHandler(element, predictedPosition);
     }

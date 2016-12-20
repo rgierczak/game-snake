@@ -2,13 +2,16 @@ const BOARD_WIDTH = 900;
 const BOARD_HEIGHT = 600;
 const ELEMENT_SIZE = 30;
 
-class Board {
-    constructor () {
+class Board extends Part {
+    constructor() {
+        super();
         this.elementsMesh = [];
         this.elementSize = ELEMENT_SIZE;
         this.width = BOARD_WIDTH;
         this.height = BOARD_HEIGHT;
         this.createBoard();
+        
+        this.setupBoard();
         this.createBoardMesh();
     }
     
@@ -21,19 +24,20 @@ class Board {
             x: this.elementSize,
             y: this.elementsMesh.length
         }
-    };
+    }
     
-    setBoardAttributes($board) {
+    setupBoard() {
+        this.createPart('snake-board');
+        this.setBoardAttributes();
+        this.render(document.body, this.$body);
+    }
+    
+    setBoardAttributes() {
+        let $board = this.$body;
         $board.setAttribute('id', 'snake-board');
         $board.style.width = this.width + 'px';
         $board.style.height = this.height + 'px';
-    };
-    
-    createBoard() {
-        let $board = document.createElement('div');
-        this.setBoardAttributes($board);
-        document.body.appendChild($board);
-    };
+    }
     
     createBoardMesh() {
         let horizontal = parseInt(this.width / this.elementSize);

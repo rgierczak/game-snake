@@ -1,4 +1,4 @@
-class GameElement {
+class Element {
     constructor() {
         this.left = null;
         this.top = null;

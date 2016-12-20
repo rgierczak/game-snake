@@ -1,4 +1,4 @@
-class SnakeElement extends GameElement {
+class SnakeElement extends Element {
     constructor(positions, board) {
         super();
         this.board = board;

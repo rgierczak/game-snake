@@ -6,7 +6,7 @@ function sendMoveEvent(method) {
     }));
 }
 
-let MovementHandler = {
+let MovementHelper = {
     stop() {
         clearInterval(this.clock);
     },

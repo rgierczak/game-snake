@@ -1,8 +1,8 @@
 const DEFAULT_SNAKE_SIZE = 3;
 
-class Snake {
+class Snake extends Part {
     constructor(board) {
-        this.$body = null;
+        super();
         this.snakeElements = [];
         this.snakeHeadPosition = {
             x: 0,
@@ -21,11 +21,11 @@ class Snake {
     
     setupHandlers() {
         document.addEventListener('keydown', (event) => {
-            KeyboardHandler.onKeyDown(event);
+            KeyboardHelper.onKeyDown(event);
         });
     }
     
-    moveSnake (predictedPosition) {
+    moveSnake(predictedPosition) {
         this.addSnakeHead(predictedPosition);
         this.removeSnakeTail();
     }
@@ -39,7 +39,7 @@ class Snake {
     isSnakeCollision(direction) {
         let isCollision = false;
         this.snakeElements.forEach((element) => {
-            if (Helper.compare(element, direction))
+            if (Utils.compare(element, direction))
                 isCollision = true;
         });
         return isCollision;
@@ -61,15 +61,15 @@ class Snake {
     
     displaySnake() {
         this.snakeElements.forEach(($element) => {
-            this.$body.appendChild($element.$body);
+            this.render($element.$body);
         });
     }
     
     setupSnakeBody() {
         let $board = document.getElementById('snake-board');
-        this.$body = this.createSnakeBody();
+        this.createPart('snake');
         if ($board)
-            $board.appendChild(this.$body);
+            this.render(this.$body, $board);
     }
     
     createSnakeElements() {
@@ -104,7 +104,7 @@ class Snake {
     addSnakeHead(predictedPosition) {
         this.createSnakeElement(predictedPosition);
         let $snakeHead = this.getSnakeHead();
-        this.$body.appendChild($snakeHead.$body);
+        this.render($snakeHead.$body);
     }
     
     moveTop() {
@@ -145,12 +145,6 @@ class Snake {
             y: $snakeHead.position.y
         };
         this.checkCollision(direction);
-    }
-    
-    createSnakeBody() {
-        let $snake = document.createElement('div');
-        $snake.setAttribute('id', 'snake');
-        return $snake;
     }
     
     createSnakeElement(predictedPosition) {

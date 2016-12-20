@@ -1,4 +1,4 @@
-class FoodElement extends GameElement {
+class FoodElement extends Element {
     constructor(board) {
         super();
         this.board = board;

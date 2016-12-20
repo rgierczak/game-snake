@@ -2,7 +2,7 @@ function addListener(event, callback) {
     document.addEventListener(event, callback);
 }
 
-class Game {
+class GameSetup {
     constructor() {
         addListener('DOMContentLoaded', () => this.setup());
     }
@@ -34,9 +34,9 @@ class Game {
     }
     
     over() {
-        MovementHandler.stop();
+        MovementHelper.stop();
         console.log('Game Over');
     }
 }
 
-new Game();
+new GameSetup();
