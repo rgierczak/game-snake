@@ -44,6 +44,15 @@ let Board = {
         }
     },
     
+    getBoardSize(axis) {
+        switch (axis) {
+            case 'x':
+                return this.elementSize;
+            case 'y':
+                return this.elementsMesh.length;
+        }
+    },
+    
     buildMeshElement(i, j) {
         return {
             x_pos: j * this.elementSize,

@@ -1,25 +1,23 @@
+function compareProperty(positionObject, objectToCompare, property) {
+    return (positionObject.position[property] === objectToCompare[property]);
+}
+
 let CollisionHandler = {
-    compareProperty (positionObject, objectToCompare, property) {
-        return (positionObject.position[property] === objectToCompare[property]);
-    },
-    
     compareObject(el, objectToCompare) {
-        let isEqualX = this.compareProperty(el, objectToCompare, 'x');
-        let isEqualY = this.compareProperty(el, objectToCompare, 'y');
+        let isEqualX = compareProperty(el, objectToCompare, 'x');
+        let isEqualY = compareProperty(el, objectToCompare, 'y');
         return isEqualX && isEqualY;
     },
     
-    checkBoardCollision(snakeElementPosition, property, boardElement) {
-        return (snakeElementPosition[property] >= 0 && snakeElementPosition[property] < boardElement);
-    },
-    
-    checkSnakeCollision(snakeElements, objectToCompare) {
-        let collisionResult = true;
-        snakeElements.forEach((el) => {
-            let comparisionResult = this.compareObject(el, objectToCompare);
+    checkSnakeCollision(direction) {
+        Snake.snakeElements.forEach((el) => {
+            let comparisionResult = CollisionHandler.compareObject(el, direction);
             if (comparisionResult)
-                collisionResult = false;
+                console.log('snake collision');
         });
-        return collisionResult;
     }
 };
+
+document.addEventListener('board:collision', () => {
+    Game.over();
+});

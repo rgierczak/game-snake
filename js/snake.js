@@ -37,10 +37,36 @@ let Snake = {
         this.removeSnakeTail();
     },
     
-    handleMovement(predictedPosition) {
-        this.moveSnake(predictedPosition);
-        Food.checkFood(predictedPosition);
+    isMovePossible: function (direction) {
+        let axis = direction.axis;
+        return (direction[axis] >= 0 && direction[axis] < Board.getBoardSize(axis));
     },
+    
+    checkSnakeCollision(direction) {
+        this.snakeElements.forEach((el) => {
+            let isMovePossible = CollisionHandler.compareObject(el, direction);
+            if (isMovePossible)
+                console.log('snake collision');
+        });
+    },
+    
+    checkBoardCollision(direction) {
+        //TODO: a może lepiej 
+        // let eventName = this.isMovePossible(direction) ? 'move' : 'board:collision';
+        // document.dispatchEvent(new Event(eventName));
+        
+        if (this.isMovePossible(direction))
+            this.handleMovement(direction);
+        else
+            document.dispatchEvent(new Event('board:collision'));
+    },
+    
+    handleMovement: function (direction) {
+        this.moveSnake(direction);
+        Food.checkFood(direction);
+    },
+    
+    //CollisionHandler.checkSnakeCollision(Snake.snakeElements, predictedPosition);
     
     displaySnake() {
         let $snakeElements = this.snakeElements;
@@ -83,36 +109,49 @@ let Snake = {
         this.displaySnakeElement($snakeHead.$body);
     },
     
-    setPredictedPositionForTop() {
+    checkCollision(direction) {
+        this.checkBoardCollision(direction);
+        this.checkSnakeCollision(direction);
+    },
+    
+    moveTop() {
         let $snakeHead = getLastElement(this.snakeElements);
-        return {
+        let direction = {
+            axis: 'y',
             x: $snakeHead.position.x,
             y: $snakeHead.position.y - 1
         };
+        this.checkCollision(direction);
     },
     
-    setPredictedPositionForBottom() {
+    moveBottom() {
         let $snakeHead = getLastElement(this.snakeElements);
-        return {
+        let direction = {
+            axis: 'y',
             x: $snakeHead.position.x,
             y: $snakeHead.position.y + 1
         };
+        this.checkCollision(direction);
     },
     
-    setPredictedPositionForLeft() {
+    moveLeft() {
         let $snakeHead = getLastElement(this.snakeElements);
-        return {
+        let direction = {
+            axis: 'x',
             x: $snakeHead.position.x - 1,
-            y: $snakeHead.position.y,
+            y: $snakeHead.position.y
         };
+        this.checkCollision(direction);
     },
     
-    setPredictedPositionForRight() {
+    moveRight() {
         let $snakeHead = getLastElement(this.snakeElements);
-        return {
+        let direction = {
+            axis: 'x',
             x: $snakeHead.position.x + 1,
             y: $snakeHead.position.y
         };
+        this.checkCollision(direction);
     },
     
     addSnakeToBoard($board, $snakeBody) {
