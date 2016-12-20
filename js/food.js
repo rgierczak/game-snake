@@ -18,10 +18,8 @@ class Food {
     }
     
     createFoodElements() {
-        let boardSize = this.board.getBoardSize();
-        let boardMesh = this.board.getBoardMesh();
         for (let i = 0; i < FOOD_ELEMENTS_NUMBER; i++)
-            this.foodElements.push(new FoodElement(boardSize, boardMesh));
+            this.foodElements.push(new FoodElement(this.board));
     }
     
     setupFoodBody() {

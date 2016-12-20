@@ -1,4 +1,4 @@
-const DEFAULT_SNAKE_SIZE = 30;
+const DEFAULT_SNAKE_SIZE = 3;
 
 class Snake {
     constructor(board) {
@@ -155,8 +155,7 @@ class Snake {
     
     createSnakeElement(predictedPosition) {
         let positions = this.buildPositionsObject(predictedPosition);
-        let boardMesh = this.board.getBoardMesh();
-        let snakeInstance = new SnakeElement(positions, boardMesh);
+        let snakeInstance = new SnakeElement(positions, this.board);
         this.snakeHeadPosition = snakeInstance.position;
         this.snakeElements.push(snakeInstance);
     }
