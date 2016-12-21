@@ -16,13 +16,13 @@ class Snake extends Part {
         };
         this.board = board;
         this.setupSnake();
-        this.setupHandlers();
     }
     
     setupSnake() {
         this.setupSnakeBody();
         this.createSnakeElements();
         this.displaySnake();
+        this.setupHandlers();
     }
     
     setupHandlers() {

@@ -1,4 +1,4 @@
-const FOOD_ELEMENTS_NUMBER = 100;
+const FOOD_ELEMENTS_NUMBER = 3;
 
 function isFoodEaten(food, element) {
     return parseInt(food.style.top) === element.top && parseInt(food.style.left) === element.left;
@@ -27,6 +27,10 @@ class Food extends Part {
         this.foodElements = [];
         this.board = board;
         this.snake = snake;
+        this.setupFood();
+    }
+    
+    setupFood() {
         this.setupFoodBody();
         this.createFoodElements();
         this.displayFood();
