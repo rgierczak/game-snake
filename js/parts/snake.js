@@ -1,5 +1,11 @@
 const DEFAULT_SNAKE_SIZE = 3;
 
+function removeElementFromDOM() {
+    let list = document.getElementById('snake');
+    if (list.childElementCount)
+        list.removeChild(list.childNodes[0]);
+}
+
 class Snake extends Part {
     constructor(board) {
         super();
@@ -83,15 +89,9 @@ class Snake extends Part {
             elements.splice(0, 1);
     }
     
-    removeElementFromDOM() {
-        let list = document.getElementById('snake');
-        if (list.childElementCount)
-            list.removeChild(list.childNodes[0]);
-    }
-    
     removeSnakeTail() {
         this.removeElementFromArray();
-        this.removeElementFromDOM();
+        removeElementFromDOM();
     }
     
     getSnakeHead() {

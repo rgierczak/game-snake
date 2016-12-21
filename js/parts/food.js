@@ -1,5 +1,18 @@
 const FOOD_ELEMENTS_NUMBER = 500;
 
+function hideInDOM(element) {
+    let list = document.getElementById('food');
+    debugger;
+    let listItemCount = list.childElementCount;
+    
+    for (let i = 0; i < listItemCount; i++) {
+        if (parseInt(list.childNodes[i].style.top) === element.top &&
+            parseInt(list.childNodes[i].style.left) === element.left) {
+            list.childNodes[i].style.display = 'none';
+        }
+    }
+}
+
 class Food extends Part {
     constructor(board, snake) {
         super();
@@ -29,17 +42,6 @@ class Food extends Part {
             this.render(this.$body, $board);
     }
     
-    removeFromDOM(element) {
-        let list = document.getElementById('food');
-        
-        for (let i = 0; i < list.childElementCount; i++) {
-            if (parseInt(list.childNodes[i].style.top) === element.top &&
-                parseInt(list.childNodes[i].style.left) === element.left) {
-                list.childNodes[i].style.display = 'none';
-            }
-        }
-    }
-    
     removeFromArray(element) {
         let elements = this.foodElements;
         for (let i = 0; i < elements.length; i++) {
@@ -49,7 +51,7 @@ class Food extends Part {
     }
     
     removeFoodElement(element) {
-        this.removeFromDOM(element);
+        hideInDOM(element);
         this.removeFromArray(element);
     }
     
