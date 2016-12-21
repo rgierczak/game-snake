@@ -17,6 +17,10 @@ function removeFromDOM(element) {
     removeEatenFood(foodList, element);
 }
 
+function addScorePoints() {
+    document.dispatchEvent(new CustomEvent('points:add'));
+}
+
 class Food extends Part {
     constructor(board, snake) {
         super();
@@ -62,14 +66,20 @@ class Food extends Part {
     foodEatenHandler(element, position) {
         this.snake.addSnakeHead(position);
         this.removeFoodElement(element);
+        addScorePoints();
+        this.checkIfGameIsOver();
+    }
+    
+    checkIfGameIsOver() {
         if (!this.foodElements.length)
             document.dispatchEvent(new CustomEvent('game:over'));
     }
     
     checkFoodHandler(element, predictedPosition) {
         let isFoodFound = Utils.compare(element, this.snake.snakeHeadPosition);
-        if (isFoodFound)
+        if (isFoodFound) {
             this.foodEatenHandler(element, predictedPosition);
+        }
     }
     
     checkFood(predictedPosition) {

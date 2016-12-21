@@ -1,3 +1,10 @@
+function playAgainHandler(points) {
+    let message = 'Points: ' +  points + '. Play again ?';
+    let confirmation = confirm(message);
+    if (confirmation)
+        window.location.reload();
+}
+
 class GameSetup {
     constructor() {
         document.addEventListener('DOMContentLoaded', () => this.setup());
@@ -13,12 +20,14 @@ class GameSetup {
         this.board = new Board;
         this.snake = new Snake(this.board);
         this.food = new Food(this.board, this.snake);
+        this.score = new Score();
     }
     
     setupListeners() {
         document.addEventListener('game:over', () => this.over());
         document.addEventListener('snake:move', (event) => this.snakeMove(event));
-        document.addEventListener('food:check', (event) => this.handleFood(event))
+        document.addEventListener('food:check', (event) => this.handleFood(event));
+        document.addEventListener('points:add', (event) => this.handleScore(event))
     }
     
     snakeMove(event) {
@@ -29,12 +38,15 @@ class GameSetup {
         this.food.checkFood(event.detail);
     }
     
+    handleScore(event) {
+        this.score.addPoint();
+    }
+    
     over() {
         MovementHelper.stop();
         document.removeEventListener('keydown', (event) => KeyboardHelper.onKeyDown);
-        let confirmation = confirm('Game over. Play again ?');
-        if (confirmation)
-            window.location.reload();
+        let points = this.score.getPoints();
+        playAgainHandler(points);
     }
 }
 
