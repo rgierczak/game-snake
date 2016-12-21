@@ -1,10 +1,6 @@
-function addListener(event, callback) {
-    document.addEventListener(event, callback);
-}
-
 class GameSetup {
     constructor() {
-        addListener('DOMContentLoaded', () => this.setup());
+        document.addEventListener('DOMContentLoaded', () => this.setup());
     }
     
     setup() {
@@ -20,9 +16,9 @@ class GameSetup {
     }
     
     setupListeners() {
-        addListener('game:over', () => this.over());
-        addListener('snake:move', (event) => this.snakeMove(event));
-        addListener('food:check', (event) => this.handleFood(event))
+        document.addEventListener('game:over', () => this.over());
+        document.addEventListener('snake:move', (event) => this.snakeMove(event));
+        document.addEventListener('food:check', (event) => this.handleFood(event))
     }
     
     snakeMove(event) {
@@ -35,7 +31,10 @@ class GameSetup {
     
     over() {
         MovementHelper.stop();
-        console.log('Game Over');
+        document.removeEventListener('keydown', (event) => KeyboardHelper.onKeyDown);
+        let confirmation = confirm('Game over. Play again ?');
+        if (confirmation)
+            window.location.reload();
     }
 }
 
