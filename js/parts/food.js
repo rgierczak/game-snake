@@ -1,16 +1,20 @@
-const FOOD_ELEMENTS_NUMBER = 500;
+const FOOD_ELEMENTS_NUMBER = 1200;
 
-function hideInDOM(element) {
-    let list = document.getElementById('food');
-    debugger;
-    let listItemCount = list.childElementCount;
-    
-    for (let i = 0; i < listItemCount; i++) {
-        if (parseInt(list.childNodes[i].style.top) === element.top &&
-            parseInt(list.childNodes[i].style.left) === element.left) {
-            list.childNodes[i].style.display = 'none';
-        }
-    }
+function isFoodEaten(food, element) {
+    return parseInt(food.style.top) === element.top && parseInt(food.style.left) === element.left;
+}
+
+function removeEatenFood(foodList, element) {
+    foodList.forEach((food) => {
+        if (isFoodEaten(food, element))
+            food.remove();
+    });
+}
+
+function removeFromDOM(element) {
+    let $food = document.getElementById('food');
+    let foodList = Array.from($food.children);
+    removeEatenFood(foodList, element);
 }
 
 class Food extends Part {
@@ -51,7 +55,7 @@ class Food extends Part {
     }
     
     removeFoodElement(element) {
-        hideInDOM(element);
+        removeFromDOM(element);
         this.removeFromArray(element);
     }
     
