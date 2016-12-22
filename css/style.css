@@ -20,6 +20,13 @@ body {
     background-color: #ffffff;
 }
 
+#popup #popup-button {
+    width: 80px;
+    height: 30px;
+    background-color: #c6c6c6;
+    color: #000000;
+}
+
 #score {
     top: 0;
     left: 920px;

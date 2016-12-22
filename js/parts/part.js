@@ -11,12 +11,13 @@ class Part {
         $board.parentNode.insertBefore($score, $board.nextElementSibling);
     }
     
-    renderMessage(message) {
-        this.$body.innerText = message;
+    renderMessage(message, $element = this.$body) {
+        $element.innerText = message;
     }
     
-    createPart(id) {
-        this.$body = document.createElement('div');
-        this.$body.setAttribute('id', id);
+    createPart(elementType, id, $element = this.$body) {
+        $element = document.createElement(elementType);
+        $element.setAttribute('id', id);
+        return $element;
     }
 }

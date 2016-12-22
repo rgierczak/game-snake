@@ -73,7 +73,7 @@ class Snake extends Part {
     
     setupSnakeBody() {
         let $board = document.getElementById('snake-board');
-        this.createPart('snake');
+        this.$body = this.createPart('div', 'snake');
         if ($board)
             this.render(this.$body, $board);
     }

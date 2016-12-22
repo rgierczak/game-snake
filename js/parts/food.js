@@ -49,7 +49,7 @@ class Food extends Part {
     
     setupFoodBody() {
         let $board = document.getElementById('snake-board');
-        this.createPart('food');
+        this.$body = this.createPart('div', 'food');
         if ($board)
             this.render(this.$body, $board);
     }

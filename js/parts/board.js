@@ -34,7 +34,7 @@ class Board extends Part {
     };
     
     createBoard() {
-        this.createPart('snake-board');
+        this.$body = this.createPart('div', 'snake-board');
         this.setBoardAttributes();
         this.render(this.$body, document.body);
     };
