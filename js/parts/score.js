@@ -2,23 +2,36 @@ class Score  extends Part {
     constructor() {
         super();
         this.points = 0;
+        this.message = null;
         
         this.setupScore();
     }
     
     setupScore() {
+        this.composeMessage();
+        this.displayScoreBoard();
+        this.renderMessage(this.message);
+    }
+    
+    displayScoreBoard() {
         let $board = document.getElementById('snake-board');
         this.createPart('score');
         if ($board)
             this.renderAfter(this.$body, $board);
     }
     
-    renderAfter($score, $board) {
-        $board.parentNode.insertBefore($score, $board.nextElementSibling);
+    updatePoints(points) {
+        this.addPoints(points);
+        this.composeMessage();
+        this.renderMessage(this.message);
     }
     
-    addPoint() {
-        this.points += 1;
+    composeMessage() {
+        this.message = 'Score: ' + this.points;
+    }
+    
+    addPoints(points) {
+        this.points += points;
     }
     
     getPoints() {

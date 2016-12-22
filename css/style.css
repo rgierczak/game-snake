@@ -5,11 +5,31 @@ body {
 }
 
 #snake-board {
-    background-color: #3162ff;
-    border: solid 1px;
-    margin: 20px auto;
-    position: relative;
     z-index: 0;
+    position: absolute;
+    background-color: #3162ff;
+}
+
+#popup {
+    padding: 0;
+    z-index: 99;
+    width: 500px;
+    height: 300px;
+    color: #000000;
+    position: absolute;
+    background-color: #ffffff;
+}
+
+#score {
+    top: 0;
+    left: 920px;
+    font-size: 40px;
+    color: #ffffff;
+    width: 200px;
+    height: 600px;
+    margin: 0 0 0 20px;
+    position: absolute;
+    background-color: #3162ff;
 }
 
 .snake-element{

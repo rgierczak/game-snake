@@ -1,8 +1,7 @@
 function playAgainHandler(points) {
-    let message = 'Points: ' +  points + '. Play again ?';
-    let confirmation = confirm(message);
-    if (confirmation)
-        window.location.reload();
+    let message = 'Points: ' + points + '. Play again ?';
+    let popup = new Popup(message);
+    popup.displayPopup();
 }
 
 class GameSetup {
@@ -39,7 +38,7 @@ class GameSetup {
     }
     
     handleScore(event) {
-        this.score.addPoint();
+        this.score.updatePoints(1);
     }
     
     over() {
