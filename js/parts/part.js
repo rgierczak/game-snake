@@ -15,8 +15,8 @@ class Part {
         $element.innerText = message;
     }
     
-    createPart(elementType, id, $element = this.$body) {
-        $element = document.createElement(elementType);
+    createPart(elementType, id) {
+        let $element = document.createElement(elementType);
         $element.setAttribute('id', id);
         return $element;
     }

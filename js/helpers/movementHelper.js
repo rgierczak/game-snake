@@ -1,4 +1,4 @@
-const SNAKE_MOVEMENT_SPEED = 40;
+const SNAKE_MOVEMENT_SPEED = 100;
 
 function sendMoveEvent(method) {
     document.dispatchEvent(new CustomEvent('snake:move', {

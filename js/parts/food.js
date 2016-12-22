@@ -1,4 +1,4 @@
-const FOOD_ELEMENTS_NUMBER = 120;
+const FOOD_ELEMENTS_NUMBER = 20;
 
 function isFoodEaten(food, element) {
     return parseInt(food.style.top) === element.top && parseInt(food.style.left) === element.left;

@@ -4,10 +4,21 @@ body {
     background-color: #000000;
 }
 
+#game {
+    width: 873px;
+    height: 600px;
+    margin: 0 auto;
+    position: relative;
+    background: url('../assets/background.jpg') no-repeat center center;
+}
+
 #snake-board {
+    top: 30px;
+    left: 80px;
     z-index: 0;
     position: absolute;
-    background-color: #3162ff;
+    -webkit-border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 #popup {
@@ -37,22 +48,24 @@ body {
 }
 
 #score {
-    top: 0;
-    left: 920px;
+    top: 30px;
+    left: 485px;
     font-size: 40px;
     color: #ffffff;
     width: 200px;
-    height: 600px;
-    margin: 0 0 0 20px;
+    height: 220px;
+    text-align: center;
+    line-height: 145px;
     position: absolute;
-    background-color: #3162ff;
+    background-color: rgba(0, 0, 0, 0.5);
+    -webkit-border-radius: 15px;
 }
 
 .snake-element{
-    width: 29px;
-    height: 29px;
+    width: 19px;
+    height: 19px;
     margin: 1px 0 0 1px;
-    background-color: #00ff00;
+    background-color: #ff9600;
     position: absolute;
     z-index: 1;
     -webkit-border-radius: 15px;
@@ -60,12 +73,11 @@ body {
 
 
 .food-element{
-    width: 29px;
-    height: 29px;
+    width: 19px;
+    height: 19px;
     margin: 1px 0 0 1px;
     position: absolute;
     z-index: 1;
-    background-color: #ffff00;
-
+    background-color: #00ff00;
     -webkit-border-radius: 15px;
 }

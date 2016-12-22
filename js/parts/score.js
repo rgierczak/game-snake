@@ -8,7 +8,7 @@ class Score  extends Part {
     
     setupScore() {
         this.displayScoreBoard();
-        this.renderMessage('score: ' + this.points);
+        this.renderMessage('Points: ' + this.points);
     }
     
     displayScoreBoard() {
@@ -20,7 +20,7 @@ class Score  extends Part {
     
     updatePoints(points) {
         this.addPoints(points);
-        this.renderMessage('score: ' + this.points);
+        this.renderMessage('Points: ' + this.points);
     }
     
     addPoints(points) {

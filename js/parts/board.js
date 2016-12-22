@@ -1,6 +1,6 @@
-const BOARD_WIDTH = 900;
-const BOARD_HEIGHT = 600;
-const ELEMENT_SIZE = 30;
+const BOARD_WIDTH = 360;
+const BOARD_HEIGHT = 500;
+const ELEMENT_SIZE = 20;
 
 class Board extends Part {
     constructor () {
@@ -18,12 +18,13 @@ class Board extends Part {
     
     getBoardSize() {
         return {
-            x: this.elementSize,
-            y: this.elementsMesh.length
+            x: BOARD_WIDTH / ELEMENT_SIZE,
+            y: BOARD_HEIGHT / ELEMENT_SIZE
         }
     };
     
     setupBoard() {
+        this.createGameWrapper();
         this.createBoard();
         this.createBoardMesh();
     }
@@ -33,10 +34,15 @@ class Board extends Part {
         this.$body.style.height = this.height + 'px';
     };
     
+    createGameWrapper() {
+        this.$gameWrapper = this.createPart('div', 'game');
+        this.render(this.$gameWrapper, document.body);
+    }
+    
     createBoard() {
         this.$body = this.createPart('div', 'snake-board');
         this.setBoardAttributes();
-        this.render(this.$body, document.body);
+        this.render(this.$body, this.$gameWrapper);
     };
     
     createBoardMesh() {
