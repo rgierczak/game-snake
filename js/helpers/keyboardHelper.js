@@ -1,5 +1,5 @@
 let KeyboardHelper = {
-    onKeyDown(event) {
+    onPopupActive(event) {
         switch (event.keyCode) {
             case 87: // w
                 MovementHelper.handle('moveTop');
@@ -16,5 +16,19 @@ let KeyboardHelper = {
             default:
                 console.log('keyCode not handled: ', event.keyCode);
         }
+    },
+    
+    onGameActive: function (event) {
+        if (event.keyCode === 13) // enter
+            document.dispatchEvent(new CustomEvent('game:restart'));
+        
+    },
+    
+    onKeyDown(event) {
+        let isPopupActive = document.getElementById('popup');
+        if (isPopupActive)
+            this.onGameActive(event);
+        else
+            this.onPopupActive(event);
     }
 };

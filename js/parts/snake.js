@@ -22,13 +22,6 @@ class Snake extends Part {
         this.setupSnakeBody();
         this.createSnakeElements();
         this.displaySnake();
-        this.setupHandlers();
-    }
-    
-    setupHandlers() {
-        document.addEventListener('keydown', (event) => {
-            KeyboardHelper.onKeyDown(event);
-        });
     }
     
     moveSnake(predictedPosition) {

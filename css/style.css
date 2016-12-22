@@ -11,10 +11,12 @@ body {
 }
 
 #popup {
+    top: 30px;
+    left: 200px;
     padding: 0;
     z-index: 99;
     width: 500px;
-    height: 300px;
+    height: auto;
     color: #000000;
     position: absolute;
     background-color: #ffffff;
@@ -25,6 +27,13 @@ body {
     height: 30px;
     background-color: #c6c6c6;
     color: #000000;
+    cursor: pointer;
+    margin: 40px auto;
+    text-align: center;
+}
+
+#popup #popup-message {
+    text-align: center;
 }
 
 #score {

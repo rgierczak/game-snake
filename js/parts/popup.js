@@ -6,10 +6,17 @@ class Popup extends Part{
         this.$popupMessage = null;
 
         this.setupPopup();
+        this.setupListeners();
     }
     
     setupPopup() {
         this.createPopup();
+    }
+    
+    setupListeners() {
+        this.$popupButton.addEventListener('click', () => {
+            document.dispatchEvent(new CustomEvent('game:restart'));
+        });
     }
     
     displayPopup() {
@@ -20,8 +27,8 @@ class Popup extends Part{
     
     createPopup() {
         this.$body = this.createPart('div', 'popup');
-        this.createPopupButton();
         this.createPopupMessage();
+        this.createPopupButton();
     }
     
     createPopupMessage() {

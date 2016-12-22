@@ -1,7 +1,11 @@
-function playAgainHandler(points) {
+function onGameOverHandler(points) {
     let message = 'Points: ' + points + '. Play again ?';
     let popup = new Popup(message);
     popup.displayPopup();
+}
+
+function restartGame() {
+    window.location.reload();
 }
 
 class GameSetup {
@@ -24,9 +28,11 @@ class GameSetup {
     
     setupListeners() {
         document.addEventListener('game:over', () => this.over());
+        document.addEventListener('game:restart', () => restartGame());
         document.addEventListener('snake:move', (event) => this.snakeMove(event));
         document.addEventListener('food:check', (event) => this.handleFood(event));
-        document.addEventListener('points:add', (event) => this.handleScore(event))
+        document.addEventListener('points:add', (event) => this.handleScore(event));
+        document.addEventListener('keydown', (event) => KeyboardHelper.onKeyDown(event));
     }
     
     snakeMove(event) {
@@ -43,9 +49,8 @@ class GameSetup {
     
     over() {
         MovementHelper.stop();
-        document.removeEventListener('keydown', (event) => KeyboardHelper.onKeyDown);
         let points = this.score.getPoints();
-        playAgainHandler(points);
+        onGameOverHandler(points);
     }
 }
 
