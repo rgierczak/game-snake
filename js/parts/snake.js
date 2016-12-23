@@ -1,6 +1,5 @@
 const SNAKE_SIZE = 3;
-const SNAKE_MOVEMENT_SPEED = 300;
-
+const SNAKE_MOVEMENT_SPEED = 100;
 
 function removeElementFromDOM() {
     let list = document.getElementById('snake');
@@ -33,10 +32,10 @@ class Snake extends Part {
     }
     
     setupListeners() {
-        document.addEventListener('keydown:topMoveTry', () => this.setSnakeDirection(this.moveTop));
-        document.addEventListener('keydown:leftMoveTry', () => this.setSnakeDirection(this.moveLeft));
-        document.addEventListener('keydown:rightMoveTry', () => this.setSnakeDirection(this.moveRight));
-        document.addEventListener('keydown:bottomMoveTry', () => this.setSnakeDirection(this.moveBottom));
+        document.addEventListener('keydown:moveUp', () => this.setSnakeDirection(this.moveUp));
+        document.addEventListener('keydown:moveLeft', () => this.setSnakeDirection(this.moveLeft));
+        document.addEventListener('keydown:moveRight', () => this.setSnakeDirection(this.moveRight));
+        document.addEventListener('keydown:moveDown', () => this.setSnakeDirection(this.moveDown));
     }
     
     startMovement() {
@@ -126,7 +125,7 @@ class Snake extends Part {
         this.render($snakeHead.$body);
     }
     
-    moveTop() {
+    moveUp() {
         let $snakeHead = this.getSnakeHead();
         let direction = {
             axis: 'y',
@@ -136,7 +135,7 @@ class Snake extends Part {
         this.checkCollision(direction);
     }
     
-    moveBottom() {
+    moveDown() {
         let $snakeHead = this.getSnakeHead();
         let direction = {
             axis: 'y',

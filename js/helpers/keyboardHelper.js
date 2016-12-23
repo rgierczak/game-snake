@@ -1,27 +1,42 @@
+const KEYS = {
+    UP: 38,
+    DOWN: 40,
+    RIGHT: 39,
+    LEFT: 37,
+    ENTER: 13
+};
+
 let KeyboardHelper = {
     onKeyDown(event) {
+        let isGameOverPopup = document.getElementById('popup');
+        isGameOverPopup ? KeyboardHelper.onGameOver(event) : KeyboardHelper.onGameActive(event);
+    },
+    
+    onGameOver(event) {
+        if (event.keyCode === KEYS.ENTER)
+            document.dispatchEvent(new CustomEvent('game:restart'));
+    },
+    
+    onGameActive(event) {
         switch (event.keyCode) {
-            case 87: // w
-                document.dispatchEvent(new CustomEvent('keydown:topMoveTry'));
+            case KEYS.UP:
+                document.dispatchEvent(new CustomEvent('keydown:moveUp'));
                 break;
-            case 65: // a
-                document.dispatchEvent(new CustomEvent('keydown:leftMoveTry'));
-    
+                
+            case KEYS.LEFT:
+                document.dispatchEvent(new CustomEvent('keydown:moveLeft'));
                 break;
-            case 83: // s
-                document.dispatchEvent(new CustomEvent('keydown:bottomMoveTry'));
-    
+                
+            case KEYS.DOWN:
+                document.dispatchEvent(new CustomEvent('keydown:moveDown'));
                 break;
-            case 68: // d
-                document.dispatchEvent(new CustomEvent('keydown:rightMoveTry'));
+                
+            case KEYS.RIGHT:
+                document.dispatchEvent(new CustomEvent('keydown:moveRight'));
                 break;
+                
             default:
                 console.log('keyCode not handled: ', event.keyCode);
         }
-    },
-    
-    onGameActive: function (event) {
-        if (event.keyCode === 13) // enter
-            document.dispatchEvent(new CustomEvent('game:restart'));
     }
 };
