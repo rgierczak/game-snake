@@ -29,27 +29,22 @@ class GameSetup {
     setupListeners() {
         document.addEventListener('game:over', () => this.over());
         document.addEventListener('game:restart', () => restartGame());
-        document.addEventListener('snake:move', (event) => this.snakeMove(event));
         document.addEventListener('food:check', (event) => this.handleFood(event));
         document.addEventListener('points:add', (event) => this.handleScore(event));
-        document.addEventListener('keydown', (event) => KeyboardHelper.onKeyDown(event));
-    }
-    
-    snakeMove(event) {
-        this.snake[event.detail]();
+        document.addEventListener('keydown', KeyboardHelper.onKeyDown.bind(this));
     }
     
     handleFood(event) {
         this.food.checkFood(event.detail);
     }
     
-    handleScore(event) {
+    handleScore() {
         this.score.updatePoints(1);
     }
     
     over() {
-        MovementHelper.stop();
         let points = this.score.getPoints();
+        clearInterval(this.snake.clock);
         onGameOverHandler(points);
     }
 }

@@ -1,4 +1,6 @@
-const DEFAULT_SNAKE_SIZE = 3;
+const SNAKE_SIZE = 3;
+const SNAKE_MOVEMENT_SPEED = 300;
+
 
 function removeElementFromDOM() {
     let list = document.getElementById('snake');
@@ -9,19 +11,42 @@ function removeElementFromDOM() {
 class Snake extends Part {
     constructor(board) {
         super();
-        this.snakeElements = [];
-        this.snakeHeadPosition = {
-            x: 0,
-            y: 0
-        };
+        this.clock = null;
         this.board = board;
+        this.snakeElements = [];
+        this.snakeHeadPosition = { x: 0, y: 0 };
+        this.snakeDirection = null;
         this.setupSnake();
+        this.setupListeners();
     }
     
     setupSnake() {
         this.setupSnakeBody();
         this.createSnakeElements();
         this.displaySnake();
+        this.setupSnakeMovement();
+    }
+    
+    setupSnakeMovement() {
+        this.setSnakeDirection(this.moveRight);
+        this.startMovement();
+    }
+    
+    setupListeners() {
+        document.addEventListener('keydown:topMoveTry', () => this.setSnakeDirection(this.moveTop));
+        document.addEventListener('keydown:leftMoveTry', () => this.setSnakeDirection(this.moveLeft));
+        document.addEventListener('keydown:rightMoveTry', () => this.setSnakeDirection(this.moveRight));
+        document.addEventListener('keydown:bottomMoveTry', () => this.setSnakeDirection(this.moveBottom));
+    }
+    
+    startMovement() {
+        this.clock = setInterval(() => {
+            this.snakeDirection();
+        }, SNAKE_MOVEMENT_SPEED);
+    }
+    
+    setSnakeDirection(direction) {
+        this.snakeDirection = direction;
     }
     
     moveSnake(predictedPosition) {
@@ -45,10 +70,11 @@ class Snake extends Part {
     }
     
     checkCollision(direction) {
-        if (this.isBoardCollision(direction) || this.isSnakeCollision(direction))
+        if (this.isBoardCollision(direction) || this.isSnakeCollision(direction)) {
             document.dispatchEvent(new Event('game:over'));
-        else
+        } else {
             this.handleMovement(direction);
+        }
     }
     
     handleMovement(direction) {
@@ -72,7 +98,7 @@ class Snake extends Part {
     }
     
     createSnakeElements() {
-        for (let i = 0; i < DEFAULT_SNAKE_SIZE; i++)
+        for (let i = 0; i < SNAKE_SIZE; i++)
             this.createSnakeElement(this.snakeHeadPosition);
     }
     
