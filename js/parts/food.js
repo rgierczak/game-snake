@@ -17,10 +17,6 @@ function removeFromDOM(element) {
     removeEatenFood(foodList, element);
 }
 
-function addScorePoints() {
-    document.dispatchEvent(new CustomEvent('points:add'));
-}
-
 class Food extends Part {
     constructor(board, snake) {
         super();
@@ -67,16 +63,18 @@ class Food extends Part {
         this.removeFromArray(element);
     }
     
+    addFoodElement() {
+        let food = this.foodElements;
+        food.push(new FoodElement(this.board));
+        let lastFoodElement = food[food.length - 1];
+        this.render(lastFoodElement.$body);
+    }
+    
     foodEatenHandler(element, position) {
         this.snake.addSnakeHead(position);
         this.removeFoodElement(element);
-        addScorePoints();
-        this.checkIfGameIsOver();
-    }
-    
-    checkIfGameIsOver() {
-        if (!this.foodElements.length)
-            document.dispatchEvent(new CustomEvent('game:over'));
+        this.addFoodElement();
+        document.dispatchEvent(new CustomEvent('points:add'));
     }
     
     checkFoodHandler(element, predictedPosition) {
