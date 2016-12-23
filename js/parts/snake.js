@@ -13,7 +13,7 @@ class Snake extends Part {
         this.clock = null;
         this.board = board;
         this.snakeElements = [];
-        this.snakeHeadPosition = { x: 0, y: 0 };
+        this.snakeHeadPosition = { x: 9, y: 0 };
         this.snakeDirection = null;
         this.setupSnake();
         this.setupListeners();
@@ -27,7 +27,7 @@ class Snake extends Part {
     }
     
     setupSnakeMovement() {
-        this.setSnakeDirection(this.moveRight);
+        this.setSnakeDirection(this.moveDown);
         this.startMovement();
     }
     
