@@ -37,15 +37,17 @@ body {
     border: solid 3px #00b900;
 }
 
+#score #score-button,
 #popup #popup-button {
     width: 80px;
     height: 40px;
-    background-color: #6bc54c;
     color: #000000;
     cursor: pointer;
+    line-height: 45px;
     margin: 40px auto;
     text-align: center;
     border: solid 3px #008c00;
+    background-color: #6bc54c;
 }
 
 #popup #popup-message {
@@ -64,6 +66,16 @@ body {
     position: absolute;
     background-color: rgba(0, 0, 0, 0.5);
     -webkit-border-radius: 15px;
+}
+
+#score #score-message {
+    margin: 0;
+    padding: 55px 0 0 0;
+    line-height: 45px;
+}
+
+#score #score-button {
+    margin: 20px auto;
 }
 
 .snake-element{
