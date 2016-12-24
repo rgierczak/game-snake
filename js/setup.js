@@ -27,11 +27,18 @@ class GameSetup {
     }
     
     setupListeners() {
-        document.addEventListener('game:over', () => this.over());
-        document.addEventListener('game:restart', () => restartGame());
+        document.addEventListener('game:over', (event) => this.over());
+        document.addEventListener('game:start', (event) => this.startGame());
+        document.addEventListener('game:restart', (event) => restartGame());
         document.addEventListener('food:check', (event) => this.handleFood(event));
         document.addEventListener('points:add', (event) => this.handleScore(event));
         document.addEventListener('keydown', KeyboardHelper.onKeyDown.bind(this));
+    }
+    
+    startGame() {
+        let isGameRunning = this.snake.clock;
+        if (!isGameRunning)
+            this.snake.startMovement();
     }
     
     handleFood(event) {

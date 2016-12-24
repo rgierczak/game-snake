@@ -11,7 +11,7 @@ class Part {
         $board.parentNode.insertBefore($score, $board.nextElementSibling);
     }
     
-    renderMessage(message, $element = this.$body) {
+    renderMessage(message, $element) {
         $element.innerText = message;
     }
     

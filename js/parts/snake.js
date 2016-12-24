@@ -28,7 +28,6 @@ class Snake extends Part {
     
     setupSnakeMovement() {
         this.setSnakeDirection(this.moveDown);
-        this.startMovement();
     }
     
     setupListeners() {
