@@ -23,8 +23,8 @@ body {
 }
 
 #popup {
-    top: 150px;
-    left: 340px;
+    top: 30px;
+    left: 485px;
     padding: 0;
     z-index: 99;
     width: 200px;
@@ -60,7 +60,7 @@ body {
     font-size: 40px;
     color: #ffffff;
     width: 200px;
-    height: 220px;
+    height: 245px;
     text-align: center;
     line-height: 145px;
     position: absolute;
@@ -75,7 +75,15 @@ body {
 }
 
 #score #score-button {
+    width: 140px;
     margin: 20px auto;
+}
+
+#score #score-button.disabled {
+    cursor: default;
+    color: #565656;
+    border: solid 3px #697369;
+    background-color: #999c98
 }
 
 .snake-element{
@@ -87,7 +95,6 @@ body {
     z-index: 1;
     -webkit-border-radius: 15px;
 }
-
 
 .food-element{
     width: 19px;

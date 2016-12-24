@@ -29,23 +29,31 @@ class Score extends Part {
     }
     
     displayScoreBoard() {
-        let $board = document.getElementById('snake-board');
         this.$body = this.createPart('div', 'score');
         this.createScoreMessage();
         this.createScoreButton();
+        this.renderScoreBoard();
+    }
+    
+    renderScoreBoard() {
+        let $board = document.getElementById('snake-board');
         if ($board)
             this.renderAfter(this.$body, $board);
     }
     
     createScoreButton() {
         this.$scoreButton = this.createPart('div', 'score-button');
-        this.renderMessage('OK', this.$scoreButton);
+        this.renderMessage('start', this.$scoreButton);
         this.render(this.$scoreButton, this.$body);
     }
     
     createScoreMessage() {
         this.$scoreMessage = this.createPart('p', 'score-message');
         this.render(this.$scoreMessage, this.$body);
+    }
+    
+    disableButton() {
+        this.$scoreButton.className = 'disabled';
     }
     
     updatePoints(points) {

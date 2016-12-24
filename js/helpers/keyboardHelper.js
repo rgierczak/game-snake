@@ -41,8 +41,12 @@ let KeyboardHelper = {
                 document.dispatchEvent(new CustomEvent('keydown:moveRight'));
                 break;
                 
+            case KEYS.ENTER:
+                event.preventDefault();
+                document.dispatchEvent(new CustomEvent('game:start'));
+                
             default:
-                console.log('keyCode not handled: ', event.keyCode);
+                // No default action.
         }
     }
 };

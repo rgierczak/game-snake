@@ -4,10 +4,6 @@ function onGameOverHandler(points) {
     popup.displayPopup();
 }
 
-function restartGame() {
-    window.location.reload();
-}
-
 class GameSetup {
     constructor() {
         document.addEventListener('DOMContentLoaded', () => this.setup());
@@ -28,17 +24,23 @@ class GameSetup {
     
     setupListeners() {
         document.addEventListener('game:over', (event) => this.over());
-        document.addEventListener('game:start', (event) => this.startGame());
-        document.addEventListener('game:restart', (event) => restartGame());
+        document.addEventListener('game:start', (event) => this.start());
+        document.addEventListener('game:restart', (event) => this.restart());
         document.addEventListener('food:check', (event) => this.handleFood(event));
         document.addEventListener('points:add', (event) => this.handleScore(event));
         document.addEventListener('keydown', KeyboardHelper.onKeyDown.bind(this));
     }
     
-    startGame() {
+    start() {
         let isGameRunning = this.snake.clock;
-        if (!isGameRunning)
+        if (!isGameRunning) {
             this.snake.startMovement();
+            this.score.disableButton();
+        }
+    }
+    
+    restart() {
+        window.location.reload();
     }
     
     handleFood(event) {
